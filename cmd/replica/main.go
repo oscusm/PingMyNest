@@ -25,8 +25,9 @@ import (
 
 const pidFile = "data/replica.pid"
 const logFile = "data/replica.log"
+const startTimeFile = "data/replica.started"
 
-const version = "0.1.1"
+const version = "0.1.2"
 
 type ClassSection struct {
 	ClassNbr        int    `json:"class_nbr"`
@@ -78,6 +79,16 @@ func main() {
 		cmdWatch(port)
 	case "--down":
 		cmdDown()
+	case "--status":
+		cmdStatus()
+	case "--restart":
+		port := "8081"
+		for i, a := range os.Args {
+			if a == "--port" && i+1 < len(os.Args) {
+				port = os.Args[i+1]
+			}
+		}
+		cmdRestart(port)
 	case "--mutate":
 		if len(os.Args) < 4 {
 			fmt.Println("usage: replica --mutate <class_nbr> <avail>")
@@ -102,6 +113,8 @@ func printHelp() {
 Usage:
   replica --populate <SUBJECT> <CATALOG_NBR>   Poll real USM once, save to data/
   replica --watch [--port 8081]                Start serving saved data in the background
+  replica --status                             Show if running + uptime
+  replica --restart [--port 8081]              Stop (if running) and start again
   replica --down                               Stop the running background server
   replica --mutate <class_nbr> <avail>         Force a seat count on the running server
   replica --list                               Show populated subject/catalog files
@@ -165,7 +178,7 @@ func cmdPopulate(subject, catalogNbr string) {
 	enc.SetIndent("", "  ")
 	enc.Encode(result)
 
-	fmt.Printf("saved %d section(s) to %s\n", len(result.Classes), filename)
+	fmt.Printf("✅ saved %d section(s) to %s\n", len(result.Classes), filename)
 }
 
 // ---------- --watch (launcher: checks running, forks background daemon, exits) ----------
@@ -197,8 +210,9 @@ func cmdWatchLauncher(port string) {
 		fmt.Println("error writing pid file:", err)
 		os.Exit(1)
 	}
+	os.WriteFile(startTimeFile, []byte(strconv.FormatInt(time.Now().Unix(), 10)), 0644)
 
-	fmt.Printf("replica watching in background on :%s (pid %d)\n", port, cmd.Process.Pid)
+	fmt.Printf("✅ replica watching in background on :%s (pid %d)\n", port, cmd.Process.Pid)
 	fmt.Printf("   logs: %s\n", logFile)
 	fmt.Println("   stop with: replica --down")
 }
@@ -223,6 +237,50 @@ func isRunning() (int, bool) {
 	return pid, true
 }
 
+// ---------- --restart ----------
+
+func cmdRestart(port string) {
+	if _, running := isRunning(); running {
+		cmdDown()
+		time.Sleep(500 * time.Millisecond)
+	}
+	cmdWatchLauncher(port)
+}
+
+// ---------- --status ----------
+
+func cmdStatus() {
+	pid, running := isRunning()
+	if !running {
+		fmt.Println("replica is not running.")
+		return
+	}
+
+	uptime := "unknown"
+	if data, err := os.ReadFile(startTimeFile); err == nil {
+		if startUnix, err := strconv.ParseInt(string(data), 10, 64); err == nil {
+			d := time.Since(time.Unix(startUnix, 0))
+			uptime = formatDuration(d)
+		}
+	}
+
+	fmt.Printf("replica is running (pid %d)\n", pid)
+	fmt.Printf("uptime: %s\n", uptime)
+}
+
+func formatDuration(d time.Duration) string {
+	h := int(d.Hours())
+	m := int(d.Minutes()) % 60
+	s := int(d.Seconds()) % 60
+	if h > 0 {
+		return fmt.Sprintf("%dh %dm %ds", h, m, s)
+	}
+	if m > 0 {
+		return fmt.Sprintf("%dm %ds", m, s)
+	}
+	return fmt.Sprintf("%ds", s)
+}
+
 // ---------- --down ----------
 
 func cmdDown() {
@@ -243,6 +301,7 @@ func cmdDown() {
 		os.Exit(1)
 	}
 	os.Remove(pidFile)
+	os.Remove(startTimeFile)
 	fmt.Printf("stopped replica (pid %d)\n", pid)
 }
 
