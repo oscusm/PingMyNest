@@ -1,4 +1,5 @@
 cmd/replica/replica
+worker
 *.exe
 *.exe~
 *.dll
