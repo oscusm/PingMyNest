@@ -35,24 +35,35 @@ USM's public Class Search endpoint exposes live seat counts for every section (n
 ```
 pingthenest/
 ├── cmd/
-│   ├── api/          # HTTP API server entrypoint
-│   └── worker/        # Poller + notification worker entrypoint
-├── internal/
-│   ├── usm/           # USM Class Search API client
-│   ├── db/             # Postgres models + queries
-│   ├── queue/          # Redis producer/consumer
-│   ├── notify/          # Email / Discord notification sending
+│   ├── api/              # HTTP API server entrypoint
+│   └── worker/           # Poller + notification worker entrypoint
+│   └── replica/          # CLI for local mock testing (see below)
+├── internal
+│   ├── usm/              # USM Class Search API client
+│   ├── db/               # Postgres models + queries
+│   ├── queue/            # Redis producer/consumer
+│   ├── notify/           # Email / Discord notification sending
 │   └── auth/             # JWT / magic-link auth
-├── migrations/          # SQL schema migrations
-├── frontend/            # Next.js app
+├── migrations/           # SQL schema migrations
+├── frontend/             # Next.js app
 ├── docker-compose.yml    # Local Postgres + Redis
 ├── Dockerfile
 └── go.mod
 ```
 
-## Why Go
+## Local testing with `replica`
 
-This project is fundamentally a concurrent polling problem — checking many watched sections on independent schedules without one slow request blocking the rest, while staying rate-limited against USM's server. Go's goroutines, channels, and `context` package make worker-pool concurrency and clean cancellation first-class, rather than something bolted on with extra libraries.
+USM's IT department asked that automated polling stay minimal and rate-limited. To avoid hitting their live endpoint repeatedly during development, this repo includes `replica` — a small CLI that fetches real data once, then serves/mutates it locally so the poller can be tested end-to-end without touching USM's servers.
+
+```bash
+go build -o replica ./cmd/replica
+
+replica --populate MAT 167      # one real request to USM, saved locally
+replica --watch                 # serves saved data on :8081 in the background
+replica --mutate 1178 3         # force a seat count change, to test notification logic
+replica --list                  # see what's populated
+replica --down                  # stop the background server
+```
 
 ## Data source
 

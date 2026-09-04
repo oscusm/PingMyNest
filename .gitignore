@@ -1,9 +1,4 @@
-# --- Go ---
-# Compiled binaries
-/ping-the-nest
-/pingthenest
-cmd/api/api
-cmd/worker/worker
+cmd/replica/replica
 *.exe
 *.exe~
 *.dll
@@ -12,25 +7,17 @@ cmd/worker/worker
 *.test
 *.out
 
-/vendor/
-
 .env
 .env.*
 !.env.example
 *.pem
 *.key
 
-frontend/node_modules/
-frontend/.next/
-frontend/out/
-frontend/.env*.local
-frontend/*.log
-node_modules/
-.next/
-out/
+data/
+replica.pid
+replica.log
 
 .vscode/
-.idea/
 *.swp
 .DS_Store
 Thumbs.db
@@ -39,5 +26,4 @@ docker-compose.override.yml
 
 *.log
 
-.air.toml.local
 tmp/
