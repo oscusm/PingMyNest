@@ -59,7 +59,7 @@ func checkForOpenings(ctx context.Context, queries *db.Queries, classes []ClassS
 		}
 
 		if seen && prevAvail.Valid && prevAvail.Int32 == 0 && c.EnrollmentAvail > 0 {
-			fmt.Printf("🔔 SEAT OPENED: %s %s-%s (%s) — now %d available\n",
+			fmt.Printf("a seat was just opened: %s %s-%s (%s) - now %d available\n",
 				c.Subject, c.CatalogNbr, c.ClassSection, c.Descr, c.EnrollmentAvail)
 			notifyWatchers(ctx, queries, int32(c.ClassNbr))
 		}

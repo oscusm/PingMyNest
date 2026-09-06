@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -28,14 +29,14 @@ func main() {
 	}
 
 	limiter := rate.NewLimiter(rate.Every(15*time.Second), 1)
-
+	fmt.Println(cfg)
 	if cfg.Development {
 		log.Println("running in DEVELOPMENT mode — pointed at http://localhost:" + cfg.Port)
 	} else {
 		log.Println("running against REAL USM endpoint — rate limited")
 	}
 
-	ticker := time.NewTicker(5 * time.Minute)
+	ticker := time.NewTicker(5 * time.Second)
 	defer ticker.Stop()
 
 	runCycle(ctx, client, cfg, limiter, queries)

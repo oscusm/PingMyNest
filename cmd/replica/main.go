@@ -19,6 +19,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"syscall"
 	"time"
 )
@@ -27,7 +28,7 @@ const pidFile = "data/replica.pid"
 const logFile = "data/replica.log"
 const startTimeFile = "data/replica.started"
 
-const version = "0.1.2"
+const version = "0.1.0"
 
 type ClassSection struct {
 	ClassNbr        int    `json:"class_nbr"`
@@ -178,7 +179,7 @@ func cmdPopulate(subject, catalogNbr string) {
 	enc.SetIndent("", "  ")
 	enc.Encode(result)
 
-	fmt.Printf("✅ saved %d section(s) to %s\n", len(result.Classes), filename)
+	fmt.Printf("saved %d section(s) to %s\n", len(result.Classes), filename)
 }
 
 // ---------- --watch (launcher: checks running, forks background daemon, exits) ----------
@@ -212,9 +213,9 @@ func cmdWatchLauncher(port string) {
 	}
 	os.WriteFile(startTimeFile, []byte(strconv.FormatInt(time.Now().Unix(), 10)), 0644)
 
-	fmt.Printf("✅ replica watching in background on :%s (pid %d)\n", port, cmd.Process.Pid)
-	fmt.Printf("   logs: %s\n", logFile)
-	fmt.Println("   stop with: replica --down")
+	fmt.Printf("replica watching in background on :%s (pid %d)\n", port, cmd.Process.Pid)
+	fmt.Printf("logs: %s\n", logFile)
+	fmt.Println("stop with: replica --down")
 }
 
 func isRunning() (int, bool) {
@@ -242,6 +243,7 @@ func isRunning() (int, bool) {
 func cmdRestart(port string) {
 	if _, running := isRunning(); running {
 		cmdDown()
+		// tiny pause to let the old process release the port before rebinding
 		time.Sleep(500 * time.Millisecond)
 	}
 	cmdWatchLauncher(port)
@@ -308,16 +310,35 @@ func cmdDown() {
 func cmdWatch(port string) {
 	http.HandleFunc("/mock-class-search", func(w http.ResponseWriter, r *http.Request) {
 		subject := r.URL.Query().Get("subject")
-		catalogNbr := r.URL.Query().Get("catalog_nbr")
+		catalogNbrFilter := r.URL.Query().Get("catalog_nbr")
 
-		filename := filepath.Join(dataDir, fmt.Sprintf("%s_%s.json", subject, catalogNbr))
-		data, err := os.ReadFile(filename)
-		if err != nil {
-			json.NewEncoder(w).Encode(ClassSearchResponse{PageCount: 1, Classes: []ClassSection{}})
-			return
+		var merged ClassSearchResponse
+		merged.PageCount = 1
+
+		files, _ := os.ReadDir(dataDir)
+		for _, file := range files {
+			name := file.Name()
+			if !strings.HasPrefix(name, subject+"_") || !strings.HasSuffix(name, ".json") {
+				continue
+			}
+			data, err := os.ReadFile(filepath.Join(dataDir, name))
+			if err != nil {
+				continue
+			}
+			var result ClassSearchResponse
+			if err := json.Unmarshal(data, &result); err != nil {
+				continue
+			}
+			for _, c := range result.Classes {
+				if catalogNbrFilter != "" && c.CatalogNbr != catalogNbrFilter {
+					continue
+				}
+				merged.Classes = append(merged.Classes, c)
+			}
 		}
+
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(data)
+		json.NewEncoder(w).Encode(merged)
 	})
 
 	http.HandleFunc("/mutate", func(w http.ResponseWriter, r *http.Request) {
@@ -357,8 +378,8 @@ func cmdWatch(port string) {
 	})
 
 	fmt.Printf("replica watching on :%s\n", port)
-	fmt.Println("  GET  /mock-class-search?subject=MAT&catalog_nbr=167")
-	fmt.Println("  POST /mutate?class_nbr=1178&avail=3")
+	fmt.Println("GET  /mock-class-search?subject=MAT&catalog_nbr=167")
+	fmt.Println("POST /mutate?class_nbr=1178&avail=3")
 	http.ListenAndServe(":"+port, nil)
 }
 
