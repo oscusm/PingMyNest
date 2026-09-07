@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"time"
 
@@ -10,6 +9,7 @@ import (
 	"golang.org/x/time/rate"
 
 	db "github.com/oscusm/PingMyNest/internal/db"
+	"github.com/oscusm/PingMyNest/internal/notify"
 )
 
 func main() {
@@ -27,20 +27,21 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	sender := notify.NewEmailSender(cfg.EhulakAPIKey)
 
 	limiter := rate.NewLimiter(rate.Every(15*time.Second), 1)
-	fmt.Println(cfg)
+
 	if cfg.Development {
 		log.Println("running in DEVELOPMENT mode — pointed at http://localhost:" + cfg.Port)
 	} else {
 		log.Println("running against REAL USM endpoint — rate limited")
 	}
 
-	ticker := time.NewTicker(5 * time.Second)
+	ticker := time.NewTicker(2 * time.Second)
 	defer ticker.Stop()
 
-	runCycle(ctx, client, cfg, limiter, queries)
+	runCycle(ctx, client, cfg, limiter, queries, sender)
 	for range ticker.C {
-		runCycle(ctx, client, cfg, limiter, queries)
+		runCycle(ctx, client, cfg, limiter, queries, sender)
 	}
 }

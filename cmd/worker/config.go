@@ -8,9 +8,10 @@ import (
 )
 
 type config struct {
-	DatabaseURL string
-	Development bool
-	Port        string
+	DatabaseURL  string
+	Development  bool
+	Port         string
+	EhulakAPIKey string
 }
 
 func loadConfig() config {
@@ -19,9 +20,10 @@ func loadConfig() config {
 	}
 
 	return config{
-		DatabaseURL: mustGetEnv("DATABASE_URL"),
-		Development: os.Getenv("DEVELOPMENT") == "true",
-		Port:        getEnvOrDefault("PORT", "8081"),
+		DatabaseURL:  mustGetEnv("DATABASE_URL"),
+		Development:  os.Getenv("DEVELOPMENT") == "true",
+		Port:         getEnvOrDefault("PORT", "8081"),
+		EhulakAPIKey: mustGetEnv("EHULAK_API_KEY"),
 	}
 }
 

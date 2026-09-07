@@ -38,3 +38,16 @@ UPDATE watches
 SET active = false
 WHERE user_id = $1
   AND class_nbr = $2;
+
+-- name: CreateVerificationToken :exec
+INSERT INTO verification_tokens (token, user_id, expires_at)
+VALUES ($1, $2, $3);
+
+-- name: GetVerificationToken :one
+SELECT * FROM verification_tokens WHERE token = $1;
+
+-- name: MarkTokenUsed :exec
+UPDATE verification_tokens SET used = true WHERE token = $1;
+
+-- name: GetSectionByClassNbr :one
+SELECT * FROM sections WHERE class_nbr = $1;

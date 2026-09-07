@@ -26,6 +26,14 @@ type User struct {
 	CreatedAt pgtype.Timestamptz
 }
 
+type VerificationToken struct {
+	Token     string
+	UserID    pgtype.Int4
+	ExpiresAt pgtype.Timestamptz
+	Used      pgtype.Bool
+	CreatedAt pgtype.Timestamptz
+}
+
 type Watch struct {
 	ID        int32
 	UserID    pgtype.Int4

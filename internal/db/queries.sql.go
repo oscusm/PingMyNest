@@ -27,6 +27,22 @@ func (q *Queries) CreateUser(ctx context.Context, email string) (User, error) {
 	return i, err
 }
 
+const createVerificationToken = `-- name: CreateVerificationToken :exec
+INSERT INTO verification_tokens (token, user_id, expires_at)
+VALUES ($1, $2, $3)
+`
+
+type CreateVerificationTokenParams struct {
+	Token     string
+	UserID    pgtype.Int4
+	ExpiresAt pgtype.Timestamptz
+}
+
+func (q *Queries) CreateVerificationToken(ctx context.Context, arg CreateVerificationTokenParams) error {
+	_, err := q.db.Exec(ctx, createVerificationToken, arg.Token, arg.UserID, arg.ExpiresAt)
+	return err
+}
+
 const createWatch = `-- name: CreateWatch :one
 INSERT INTO watches (user_id, class_nbr) VALUES ($1, $2) RETURNING id, user_id, class_nbr, active, created_at
 `
@@ -128,6 +144,26 @@ func (q *Queries) GetDistinctWatchedSubjects(ctx context.Context) ([]string, err
 	return items, nil
 }
 
+const getSectionByClassNbr = `-- name: GetSectionByClassNbr :one
+SELECT class_nbr, subject, catalog_nbr, class_section, descr, term, last_enrollment_avail, updated_at FROM sections WHERE class_nbr = $1
+`
+
+func (q *Queries) GetSectionByClassNbr(ctx context.Context, classNbr int32) (Section, error) {
+	row := q.db.QueryRow(ctx, getSectionByClassNbr, classNbr)
+	var i Section
+	err := row.Scan(
+		&i.ClassNbr,
+		&i.Subject,
+		&i.CatalogNbr,
+		&i.ClassSection,
+		&i.Descr,
+		&i.Term,
+		&i.LastEnrollmentAvail,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const getSectionLastAvail = `-- name: GetSectionLastAvail :one
 SELECT last_enrollment_avail FROM sections WHERE class_nbr = $1
 `
@@ -153,6 +189,32 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error
 		&i.CreatedAt,
 	)
 	return i, err
+}
+
+const getVerificationToken = `-- name: GetVerificationToken :one
+SELECT token, user_id, expires_at, used, created_at FROM verification_tokens WHERE token = $1
+`
+
+func (q *Queries) GetVerificationToken(ctx context.Context, token string) (VerificationToken, error) {
+	row := q.db.QueryRow(ctx, getVerificationToken, token)
+	var i VerificationToken
+	err := row.Scan(
+		&i.Token,
+		&i.UserID,
+		&i.ExpiresAt,
+		&i.Used,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
+const markTokenUsed = `-- name: MarkTokenUsed :exec
+UPDATE verification_tokens SET used = true WHERE token = $1
+`
+
+func (q *Queries) MarkTokenUsed(ctx context.Context, token string) error {
+	_, err := q.db.Exec(ctx, markTokenUsed, token)
+	return err
 }
 
 const upsertSection = `-- name: UpsertSection :exec

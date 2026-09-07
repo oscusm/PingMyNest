@@ -14,6 +14,7 @@ worker
 !.env.example
 *.pem
 *.key
+./api 
 
 data/
 replica.pid
@@ -29,3 +30,5 @@ docker-compose.override.yml
 *.log
 
 tmp/
+cmd/api/api
+/api

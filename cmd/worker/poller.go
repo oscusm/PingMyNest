@@ -10,9 +10,10 @@ import (
 	"golang.org/x/time/rate"
 
 	db "github.com/oscusm/PingMyNest/internal/db"
+	"github.com/oscusm/PingMyNest/internal/notify"
 )
 
-func runCycle(ctx context.Context, client *http.Client, cfg config, limiter *rate.Limiter, queries *db.Queries) {
+func runCycle(ctx context.Context, client *http.Client, cfg config, limiter *rate.Limiter, queries *db.Queries, sender *notify.EmailSender) {
 	if err := warmUpSession(ctx, client, cfg, limiter); err != nil {
 		log.Println("error warming up session:", err)
 		return
@@ -34,15 +35,15 @@ func runCycle(ctx context.Context, client *http.Client, cfg config, limiter *rat
 			log.Println("error polling", subj, ":", err)
 			continue
 		}
-		checkForOpenings(ctx, queries, result.Classes)
+		checkForOpenings(ctx, queries, sender, result.Classes)
 	}
 	fmt.Println("--- cycle complete ---")
 }
 
-func checkForOpenings(ctx context.Context, queries *db.Queries, classes []ClassSection) {
+func checkForOpenings(ctx context.Context, queries *db.Queries, sender *notify.EmailSender, classes []ClassSection) {
 	for _, c := range classes {
 		prevAvail, lookupErr := queries.GetSectionLastAvail(ctx, int32(c.ClassNbr))
-		seen := lookupErr == nil // no row found = first time seeing this section
+		seen := lookupErr == nil
 
 		err := queries.UpsertSection(ctx, db.UpsertSectionParams{
 			ClassNbr:            int32(c.ClassNbr),
@@ -59,9 +60,9 @@ func checkForOpenings(ctx context.Context, queries *db.Queries, classes []ClassS
 		}
 
 		if seen && prevAvail.Valid && prevAvail.Int32 == 0 && c.EnrollmentAvail > 0 {
-			fmt.Printf("a seat was just opened: %s %s-%s (%s) - now %d available\n",
+			log.Printf("SEAT OPENED: %s %s-%s (%s) - now %d available\n",
 				c.Subject, c.CatalogNbr, c.ClassSection, c.Descr, c.EnrollmentAvail)
-			notifyWatchers(ctx, queries, int32(c.ClassNbr))
+			notifyWatchers(ctx, queries, sender, int32(c.ClassNbr), c.Subject, c.CatalogNbr, c.ClassSection, c.Descr, c.EnrollmentAvail)
 		}
 	}
 }
