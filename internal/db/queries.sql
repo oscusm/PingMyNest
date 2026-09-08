@@ -51,3 +51,20 @@ UPDATE verification_tokens SET used = true WHERE token = $1;
 
 -- name: GetSectionByClassNbr :one
 SELECT * FROM sections WHERE class_nbr = $1;
+
+-- name: GetWatchesForEmail :many
+SELECT w.id, w.class_nbr, w.active, w.created_at,
+       s.subject, s.catalog_nbr, s.class_section, s.descr, s.last_enrollment_avail
+FROM watches w
+JOIN users u ON u.id = w.user_id
+JOIN sections s ON s.class_nbr = w.class_nbr
+WHERE u.email = $1
+ORDER BY w.created_at DESC;
+
+-- name: DeleteWatchByUserAndClass :exec
+DELETE FROM watches
+WHERE user_id = (SELECT id FROM users WHERE email = $1)
+  AND class_nbr = $2;
+
+-- name: GetUserByID :one
+SELECT * FROM users WHERE id = $1;

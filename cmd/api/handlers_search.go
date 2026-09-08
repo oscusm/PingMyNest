@@ -28,17 +28,13 @@ type apiClassSearchResponse struct {
 	Classes   []apiClassSection `json:"classes"`
 }
 
-// searchHandler proxies to the mock server in development, or the real USM
-// endpoint in production, and caches results into Postgres so that /watch
-// can later verify a class_nbr is real without needing the client to resend
-// its subject/description.
 func searchHandler(queries *db.Queries) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		subject := r.URL.Query().Get("subject")
 		catalogNbr := r.URL.Query().Get("catalog_nbr")
 
 		if subject == "" {
-			http.Error(w, "subject is required", http.StatusBadRequest)
+			writeError(w, http.StatusBadRequest, "subject is required")
 			return
 		}
 
@@ -57,7 +53,7 @@ func searchHandler(queries *db.Queries) http.HandlerFunc {
 
 		u, err := url.Parse(baseURL)
 		if err != nil {
-			http.Error(w, "internal error building request", http.StatusInternalServerError)
+			writeError(w, http.StatusInternalServerError, "internal error building request")
 			return
 		}
 		q := u.Query()
@@ -78,19 +74,17 @@ func searchHandler(queries *db.Queries) http.HandlerFunc {
 
 		resp, err := http.Get(u.String())
 		if err != nil {
-			http.Error(w, "error reaching class search source", http.StatusBadGateway)
+			writeError(w, http.StatusBadGateway, "error reaching class search source")
 			return
 		}
 		defer resp.Body.Close()
 
 		var result apiClassSearchResponse
 		if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-			http.Error(w, "upstream returned invalid data", http.StatusBadGateway)
+			writeError(w, http.StatusBadGateway, "upstream returned invalid data")
 			return
 		}
 
-		// cache every returned section into Postgres, so /watch can verify
-		// a class_nbr exists later without the client resending its details
 		ctx := r.Context()
 		for _, c := range result.Classes {
 			_ = queries.UpsertSection(ctx, db.UpsertSectionParams{
@@ -102,11 +96,8 @@ func searchHandler(queries *db.Queries) http.HandlerFunc {
 				Term:                c.Strm,
 				LastEnrollmentAvail: pgtype.Int4{Int32: int32(c.EnrollmentAvail), Valid: true},
 			})
-			// errors intentionally ignored here - caching is best-effort,
-			// shouldn't fail the user's search if a write hiccups
 		}
 
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(result)
+		writeJSON(w, http.StatusOK, result)
 	}
 }

@@ -18,29 +18,27 @@ type watchRequest struct {
 func watchHandler(queries *db.Queries) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
-			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+			writeError(w, http.StatusMethodNotAllowed, "method not allowed")
 			return
 		}
 
 		var req watchRequest
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-			http.Error(w, "invalid request body", http.StatusBadRequest)
+			writeError(w, http.StatusBadRequest, "invalid request body")
 			return
 		}
 
 		email := strings.TrimSpace(strings.ToLower(req.Email))
 		if email == "" || req.ClassNbr == 0 {
-			http.Error(w, "email and class_nbr are required", http.StatusBadRequest)
+			writeError(w, http.StatusBadRequest, "email and class_nbr are required")
 			return
 		}
 
 		ctx := r.Context()
 
-		// verify this class is real by checking our own cache, populated by
-		// prior /search calls - never trust client-supplied class details
 		_, err := queries.GetSectionByClassNbr(ctx, req.ClassNbr)
 		if err != nil {
-			http.Error(w, "class not found - search for it first", http.StatusNotFound)
+			writeError(w, http.StatusNotFound, "class not found - search for it first")
 			return
 		}
 
@@ -48,7 +46,7 @@ func watchHandler(queries *db.Queries) http.HandlerFunc {
 		if err != nil {
 			user, err = queries.CreateUser(ctx, email)
 			if err != nil {
-				http.Error(w, "error creating user", http.StatusInternalServerError)
+				writeError(w, http.StatusInternalServerError, "error creating user")
 				return
 			}
 		}
@@ -58,11 +56,10 @@ func watchHandler(queries *db.Queries) http.HandlerFunc {
 			ClassNbr: pgtype.Int4{Int32: req.ClassNbr, Valid: true},
 		})
 		if err != nil {
-			http.Error(w, "error creating watch (may already exist)", http.StatusConflict)
+			writeError(w, http.StatusConflict, "error creating watch (may already exist)")
 			return
 		}
 
-		w.WriteHeader(http.StatusCreated)
-		w.Write([]byte(`{"message":"watch created, verify your email to receive notifications"}`))
+		writeJSON(w, http.StatusCreated, map[string]string{"message": "watch created, verify your email to receive notifications"})
 	}
 }

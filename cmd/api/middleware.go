@@ -114,14 +114,14 @@ func rateLimitMiddleware(store *rateLimiterStore, next http.Handler) http.Handle
 		ip := getClientIP(r)
 
 		if store.isBanned(ip) {
-			http.Error(w, "too many requests, temporarily banned", http.StatusForbidden)
+			writeError(w, http.StatusForbidden, "too many requests, temporarily banned")
 			return
 		}
 
 		entry := store.getLimiter(ip)
 		if !entry.limiter.Allow() {
 			store.recordViolation(ip)
-			http.Error(w, "rate limit exceeded", http.StatusTooManyRequests)
+			writeError(w, http.StatusTooManyRequests, "rate limit exceeded")
 			return
 		}
 
@@ -143,7 +143,7 @@ func throttleMiddleware(maxConcurrent int, next http.Handler) http.Handler {
 			defer func() { <-sem }()
 			next.ServeHTTP(w, r)
 		default:
-			http.Error(w, "server busy, try again shortly", http.StatusServiceUnavailable)
+			writeError(w, http.StatusServiceUnavailable, "server busy, try again shortly")
 		}
 	})
 }

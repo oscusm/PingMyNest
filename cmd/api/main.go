@@ -27,15 +27,19 @@ func main() {
 	queries := db.New(pool)
 
 	sender := notify.NewEmailSender(mustGetEnv("EHULAK_API_KEY"))
+	jwtSecret := mustGetEnv("JWT_SECRET")
 
 	limiterStore := newRateLimiterStore()
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/health", healthHandler)
 	mux.HandleFunc("/signup", signupHandler(queries, sender))
-	mux.HandleFunc("/verify", verifyHandler(queries))
+	mux.HandleFunc("/verify", verifyHandler(queries, jwtSecret))
 	mux.HandleFunc("/search", searchHandler(queries))
 	mux.HandleFunc("/watch", watchHandler(queries))
+	mux.HandleFunc("/watches", authMiddleware(jwtSecret, listWatchesHandler(queries)))
+	mux.HandleFunc("/watch/delete", authMiddleware(jwtSecret, deleteWatchHandler(queries)))
+	mux.HandleFunc("/me", authMiddleware(jwtSecret, meHandler(queries)))
 
 	handler := throttleMiddleware(50, rateLimitMiddleware(limiterStore, mux))
 
@@ -44,8 +48,7 @@ func main() {
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("ok"))
+	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 }
 
 func mustGetEnv(key string) string {

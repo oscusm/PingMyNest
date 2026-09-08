@@ -4,14 +4,15 @@ import (
 	"net/http"
 	"time"
 
+	authpkg "github.com/oscusm/PingMyNest/internal/auth"
 	db "github.com/oscusm/PingMyNest/internal/db"
 )
 
-func verifyHandler(queries *db.Queries) http.HandlerFunc {
+func verifyHandler(queries *db.Queries, jwtSecret string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		token := r.URL.Query().Get("token")
 		if token == "" {
-			http.Error(w, "missing token", http.StatusBadRequest)
+			writeError(w, http.StatusBadRequest, "missing token")
 			return
 		}
 
@@ -19,31 +20,45 @@ func verifyHandler(queries *db.Queries) http.HandlerFunc {
 
 		record, err := queries.GetVerificationToken(ctx, token)
 		if err != nil {
-			http.Error(w, "invalid or expired token", http.StatusBadRequest)
+			writeError(w, http.StatusBadRequest, "invalid or expired token")
 			return
 		}
 
 		if record.Used.Valid && record.Used.Bool {
-			http.Error(w, "token already used", http.StatusBadRequest)
+			writeError(w, http.StatusBadRequest, "token already used")
 			return
 		}
 
 		if time.Now().After(record.ExpiresAt.Time) {
-			http.Error(w, "token expired", http.StatusBadRequest)
+			writeError(w, http.StatusBadRequest, "token expired")
 			return
 		}
 
 		if err := queries.VerifyUser(ctx, record.UserID.Int32); err != nil {
-			http.Error(w, "error verifying user", http.StatusInternalServerError)
+			writeError(w, http.StatusInternalServerError, "error verifying user")
 			return
 		}
 
 		if err := queries.MarkTokenUsed(ctx, token); err != nil {
-			http.Error(w, "error marking token used", http.StatusInternalServerError)
+			writeError(w, http.StatusInternalServerError, "error marking token used")
 			return
 		}
 
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{"message":"email verified"}`))
+		user, err := queries.GetUserByID(ctx, record.UserID.Int32)
+		if err != nil {
+			writeError(w, http.StatusInternalServerError, "error loading user")
+			return
+		}
+
+		sessionToken, err := authpkg.GenerateToken(jwtSecret, user.ID, user.Email)
+		if err != nil {
+			writeError(w, http.StatusInternalServerError, "error generating session")
+			return
+		}
+
+		writeJSON(w, http.StatusOK, map[string]string{
+			"message": "email verified",
+			"token":   sessionToken,
+		})
 	}
 }

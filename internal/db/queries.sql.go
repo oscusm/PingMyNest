@@ -82,6 +82,22 @@ func (q *Queries) DeactivateWatch(ctx context.Context, arg DeactivateWatchParams
 	return err
 }
 
+const deleteWatchByUserAndClass = `-- name: DeleteWatchByUserAndClass :exec
+DELETE FROM watches
+WHERE user_id = (SELECT id FROM users WHERE email = $1)
+  AND class_nbr = $2
+`
+
+type DeleteWatchByUserAndClassParams struct {
+	Email    string
+	ClassNbr pgtype.Int4
+}
+
+func (q *Queries) DeleteWatchByUserAndClass(ctx context.Context, arg DeleteWatchByUserAndClassParams) error {
+	_, err := q.db.Exec(ctx, deleteWatchByUserAndClass, arg.Email, arg.ClassNbr)
+	return err
+}
+
 const getActiveWatchersForSection = `-- name: GetActiveWatchersForSection :many
 SELECT
     u.id,
@@ -191,6 +207,22 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error
 	return i, err
 }
 
+const getUserByID = `-- name: GetUserByID :one
+SELECT id, email, verified, created_at FROM users WHERE id = $1
+`
+
+func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
+	row := q.db.QueryRow(ctx, getUserByID, id)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Email,
+		&i.Verified,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const getVerificationToken = `-- name: GetVerificationToken :one
 SELECT token, user_id, expires_at, used, created_at FROM verification_tokens WHERE token = $1
 `
@@ -206,6 +238,58 @@ func (q *Queries) GetVerificationToken(ctx context.Context, token string) (Verif
 		&i.CreatedAt,
 	)
 	return i, err
+}
+
+const getWatchesForEmail = `-- name: GetWatchesForEmail :many
+SELECT w.id, w.class_nbr, w.active, w.created_at,
+       s.subject, s.catalog_nbr, s.class_section, s.descr, s.last_enrollment_avail
+FROM watches w
+JOIN users u ON u.id = w.user_id
+JOIN sections s ON s.class_nbr = w.class_nbr
+WHERE u.email = $1
+ORDER BY w.created_at DESC
+`
+
+type GetWatchesForEmailRow struct {
+	ID                  int32
+	ClassNbr            pgtype.Int4
+	Active              pgtype.Bool
+	CreatedAt           pgtype.Timestamptz
+	Subject             string
+	CatalogNbr          string
+	ClassSection        string
+	Descr               pgtype.Text
+	LastEnrollmentAvail pgtype.Int4
+}
+
+func (q *Queries) GetWatchesForEmail(ctx context.Context, email string) ([]GetWatchesForEmailRow, error) {
+	rows, err := q.db.Query(ctx, getWatchesForEmail, email)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetWatchesForEmailRow
+	for rows.Next() {
+		var i GetWatchesForEmailRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.ClassNbr,
+			&i.Active,
+			&i.CreatedAt,
+			&i.Subject,
+			&i.CatalogNbr,
+			&i.ClassSection,
+			&i.Descr,
+			&i.LastEnrollmentAvail,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const markTokenUsed = `-- name: MarkTokenUsed :exec
