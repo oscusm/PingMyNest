@@ -7,7 +7,13 @@ import {
   type AdminUser,
   type AdminUserDetail,
   type AdminWatch,
+  type AlertSettings,
   type ClassSection,
+  type CourseInsights,
+  type CourseWatchItem,
+  type CourseWatchRequest,
+  type DegreeProgram,
+  type GECCategory,
   type HealthResponse,
   type MeResponse,
   type MessageResponse,
@@ -16,6 +22,8 @@ import {
   type SearchParams,
   type SearchResponse,
   type SeatStatus,
+  type SectionChange,
+  type Track,
   type VerifyResponse,
   type WatchItem,
   type WatchRequest,
@@ -185,6 +193,43 @@ export const api = {
       signal,
     }),
 
+  /** Watch every section of a course; a seat in any matching one alerts. */
+  courseWatch: (payload: CourseWatchRequest, signal?: AbortSignal) =>
+    request<MessageResponse>("/course-watch", { method: "POST", body: payload, signal }),
+
+  courseWatches: (signal?: AbortSignal) => request<CourseWatchItem[]>("/course-watches", { signal }),
+
+  deleteCourseWatch: (id: number) =>
+    request<MessageResponse>(`/course-watches/${id}`, { method: "DELETE" }),
+
+  setWatchChanges: (classNbr: number, notifyChanges: boolean) =>
+    request<MessageResponse>("/watch/changes", {
+      method: "POST",
+      body: { class_nbr: classNbr, notify_changes: notifyChanges },
+    }),
+
+  /** Recent instructor/time/cancellation changes on watched sections. */
+  changes: (signal?: AbortSignal) => request<SectionChange[]>("/changes", { signal }),
+
+  alertSettings: (signal?: AbortSignal) => request<AlertSettings>("/alert-settings", { signal }),
+
+  saveAlertSettings: (discordWebhook: string) =>
+    request<AlertSettings>("/alert-settings", { method: "PUT", body: { discord_webhook: discordWebhook } }),
+
+  /** Pre-professional tracks from usm.edu, with their course requirements. */
+  tracks: (signal?: AbortSignal) => request<Track[]>("/tracks", { auth: false, signal }),
+
+  programs: (signal?: AbortSignal) => request<DegreeProgram[]>("/programs", { auth: false, signal }),
+
+  gec: (signal?: AbortSignal) => request<GECCategory[]>("/gec", { auth: false, signal }),
+
+  courseInsights: (subject: string, catalogNbr: string, signal?: AbortSignal) =>
+    request<CourseInsights>("/course-insights", {
+      auth: false,
+      query: { subject, catalog_nbr: catalogNbr },
+      signal,
+    }),
+
   /** Signs out on every device (the API bumps the token version). */
   logout: (signal?: AbortSignal) =>
     request<MessageResponse>("/logout", { method: "POST", auth: false, signal }),
@@ -318,6 +363,14 @@ export type {
   AdminUser,
   AdminUserDetail,
   AdminWatch,
+  AlertSettings,
+  CourseInsights,
+  CourseWatchItem,
+  CourseWatchRequest,
+  DegreeProgram,
+  GECCategory,
+  SectionChange,
+  Track,
   PulseCycle,
   PulseResponse,
   ClassSection,

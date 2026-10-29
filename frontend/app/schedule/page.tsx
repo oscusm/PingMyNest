@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { toast } from "sonner";
+import { ExportBar, PlanHints } from "@/components/schedule/PlanHints";
 import { Navbar } from "@/components/landing/Navbar";
 import { CourseCombobox } from "@/components/search/CourseCombobox";
 import { SectionDetailModal } from "@/components/search/SectionDetailModal";
@@ -345,6 +346,7 @@ export default function SchedulePage() {
             </div>
 
             <Notices plan={plan} result={result} />
+            <PlanHints plan={plan} picks={current?.picks ?? []} />
 
             <WeekCalendar
               events={events}
@@ -358,6 +360,7 @@ export default function SchedulePage() {
               Drag on the grid to block off time. Drag a block to move it, or its bottom edge to resize. Ctrl+Z undoes.
             </p>
 
+            {current ? <ExportBar picks={current.picks} /> : null}
             {current ? (
               <ScheduleTable
                 picks={current.picks}

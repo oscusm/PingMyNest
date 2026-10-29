@@ -4,8 +4,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Bell, BellOff, LogOut, Plus, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import { Navbar } from "@/components/landing/Navbar";
+import { AlertChannels, ChangesFeed, CourseWatches } from "@/components/watches/AlertPanels";
 import { usePingApi, type WatchItem } from "@/hooks/usePingApi";
+import { api } from "@/lib/api";
 import { cn } from "@/lib/cn";
 
 function statusChip(w: WatchItem) {
@@ -56,6 +59,19 @@ export default function WatchesPage() {
       await listWatches();
     } catch {
       /* error surfaced on hook */
+    } finally {
+      setPending(null);
+    }
+  };
+
+  // instructor/time/cancellation alerts outlast the seat alert
+  const onToggleChanges = async (w: WatchItem) => {
+    setPending(w.class_nbr);
+    try {
+      await api.setWatchChanges(w.class_nbr, !w.notify_changes);
+      await listWatches();
+    } catch {
+      toast("Couldn't update that watch");
     } finally {
       setPending(null);
     }
@@ -181,6 +197,19 @@ export default function WatchesPage() {
                       </div>
                       <p className="mt-1 truncate text-sm text-ink-2">{w.descr}</p>
                       <p className="mt-1 font-mono text-xs text-muted">CRN {w.class_nbr}</p>
+                      <label
+                        className="mt-2 inline-flex cursor-pointer items-center gap-2 text-xs text-muted"
+                        title="Email me if the instructor, meeting time, or section status changes"
+                      >
+                        <input
+                          type="checkbox"
+                          className="h-3.5 w-3.5 accent-[var(--color-ink)]"
+                          checked={w.notify_changes}
+                          disabled={busy}
+                          onChange={() => void onToggleChanges(w)}
+                        />
+                        Alert me to changes
+                      </label>
                     </div>
 
                     <div className="flex shrink-0 gap-2">
@@ -215,6 +244,14 @@ export default function WatchesPage() {
               })}
             </ul>
           )}
+
+          {user ? (
+            <>
+              <CourseWatches />
+              <ChangesFeed />
+              <AlertChannels />
+            </>
+          ) : null}
         </div>
       </main>
     </>

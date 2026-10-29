@@ -1,0 +1,3739 @@
+{
+  "tracks": [
+    {
+      "slug": "dentistry",
+      "name": "Pre-Dentistry",
+      "summary": "As you become a dentist, you'll examine patients and diagnose, treat, and prevent oral diseases and conditions. You'll become a healthcare professional licensed to provide the highest standards of health, as dentistry can have an impact on the health of the entire body.",
+      "note": "The following list of Required Courses* meets only the minimum requirements for admission to the School of Dentistry at the University of Mississippi Medical Center (UMMC) in Jackson. Students must consult the specific admission requirements and application deadlines for the school(s) to which they plan to apply, including UMMC.",
+      "requirements": [
+        {
+          "label": "Two semesters of General Chemistry",
+          "text": "Two semesters of General Chemistry (CHE 106/L \u0026 107/L)",
+          "options": [
+            [
+              "CHE 106",
+              "CHE 106L",
+              "CHE 107",
+              "CHE 107L"
+            ]
+          ]
+        },
+        {
+          "label": "Two semesters of Organic Chemistry",
+          "text": "Two semesters of Organic Chemistry (CHE 255/L \u0026 256/L)",
+          "options": [
+            [
+              "CHE 255",
+              "CHE 255L",
+              "CHE 256",
+              "CHE 256L"
+            ]
+          ]
+        },
+        {
+          "label": "Two semesters of General Biology",
+          "text": "Two semesters of General Biology (BSC 110/L \u0026 111/L)",
+          "options": [
+            [
+              "BSC 110",
+              "BSC 110L",
+              "BSC 111",
+              "BSC 111L"
+            ]
+          ]
+        },
+        {
+          "label": "Two semesters of General Physics",
+          "text": "Two semesters of General Physics (PHY 111/L \u0026 112/L OR 201/L \u0026 202/L)",
+          "options": [
+            [
+              "PHY 111",
+              "PHY 111L",
+              "PHY 112",
+              "PHY 112L"
+            ],
+            [
+              "PHY 201",
+              "PHY 201L",
+              "PHY 202",
+              "PHY 202L"
+            ]
+          ]
+        },
+        {
+          "label": "Two semesters of English Composition",
+          "text": "Two semesters of English Composition (ENG 101 \u0026 102)",
+          "options": [
+            [
+              "ENG 101",
+              "ENG 102"
+            ]
+          ]
+        },
+        {
+          "label": "Must be taken at a 4-year",
+          "text": "Microbiology (BSC 282/L) - Must be taken at a 4-year",
+          "options": [
+            [
+              "BSC 282",
+              "BSC 282L"
+            ]
+          ]
+        },
+        {
+          "label": "Biochemistry",
+          "text": "Biochemistry (CHE 420 or 421)",
+          "options": [
+            [
+              "CHE 420"
+            ],
+            [
+              "CHE 421"
+            ]
+          ]
+        },
+        {
+          "text": "Two mathematics courses"
+        }
+      ],
+      "milestones": [
+        "Completion of a series of specified courses in the natural sciences and humanities",
+        "Completion of a baccalaureate degree is generally required, though special exceptions will occasionally be made for students with greater than 90 hours of credit",
+        "A competitive GPA, both overall and in the BCPM (Biology, Chemistry, Physics, and Mathematics) areas",
+        "Multiple positive traits, such as honesty, integrity, ethics, leadership ability, and motivation",
+        "Competitive scores from the nationally administered Dental Admission Test (DAT)",
+        "Ability to handle full-time study",
+        "Observations of dentists in practice, generally with a minimum requirement of 100 shadowing hours",
+        "Active participation in community service",
+        "Manual dexterity, often shown by skills or hobbies that involve fine movements (i.e. playing an instrument, crocheting/knitting, painting/sculpting)"
+      ],
+      "footnotes": [
+        "Courses not accepted include courses taken by correspondence or online, physical and military science courses, dogmatic religion courses, and courses in the BCPM areas for non-majors. Advanced (300+) science courses must be taken at a four-year institution."
+      ],
+      "related_programs": [
+        "chemistry"
+      ],
+      "source_url": "https://www.usm.edu/preprofessional/dentistry.php",
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "medicine",
+      "name": "Pre-Medicine",
+      "summary": "No matter the type of medicine you want to practice—from being a primary care physician or a surgeon—your main role of diagnosing, healing, and caring for patients will be consistent throughout your specialty. Depending on your degree of choice, you'll become a doctor that can provide direct patient care or concentrate on applied research, medical education, administration, or a combination of all areas.",
+      "note": "These meet the course requirements of most medical schools and provide content preparation for the MCAT exam.",
+      "requirements": [
+        {
+          "label": "Principles of Biological Science",
+          "text": "BSC 110/L \u0026 BSC 111/L (Principles of Biological Science)",
+          "options": [
+            [
+              "BSC 110",
+              "BSC 110L",
+              "BSC 111",
+              "BSC 111L"
+            ]
+          ]
+        },
+        {
+          "label": "General Chemistry",
+          "text": "CHE 106/L \u0026 CHE 107/L (General Chemistry)",
+          "options": [
+            [
+              "CHE 106",
+              "CHE 106L",
+              "CHE 107",
+              "CHE 107L"
+            ]
+          ]
+        },
+        {
+          "label": "Organic Chemistry",
+          "text": "CHE 255/L \u0026 CHE 256/L (Organic Chemistry)",
+          "options": [
+            [
+              "CHE 255",
+              "CHE 255L",
+              "CHE 256",
+              "CHE 256L"
+            ]
+          ]
+        },
+        {
+          "label": "Biochemistry",
+          "text": "CHE 420 or CHE 421 (Biochemistry)",
+          "options": [
+            [
+              "CHE 420"
+            ],
+            [
+              "CHE 421"
+            ]
+          ]
+        },
+        {
+          "label": "Physics",
+          "text": "PHY 111/L \u0026 PHY 112/L or PHY 201/L \u0026 PHY 202/L (Physics)",
+          "options": [
+            [
+              "PHY 111",
+              "PHY 111L",
+              "PHY 112",
+              "PHY 112L"
+            ],
+            [
+              "PHY 201",
+              "PHY 201L",
+              "PHY 202",
+              "PHY 202L"
+            ]
+          ]
+        },
+        {
+          "label": "English Composition",
+          "text": "ENG 101 \u0026 ENG 102 (English Composition)",
+          "options": [
+            [
+              "ENG 101",
+              "ENG 102"
+            ]
+          ]
+        },
+        {
+          "label": "Calculus",
+          "text": "MAT 103 (Trigonometry), or MAT 114 or MAT 167 (Calculus)",
+          "options": [
+            [
+              "MAT 103"
+            ],
+            [
+              "MAT 114"
+            ],
+            [
+              "MAT 167"
+            ]
+          ]
+        },
+        {
+          "label": "Psychology",
+          "text": "PSY 110 (Psychology)",
+          "options": [
+            [
+              "PSY 110"
+            ]
+          ]
+        },
+        {
+          "label": "Sociology",
+          "text": "SOC 101 (Sociology)",
+          "options": [
+            [
+              "SOC 101"
+            ]
+          ]
+        },
+        {
+          "label": "Statistics",
+          "text": "PSY 360 or CSS 211 or MAT 320 (Statistics)",
+          "options": [
+            [
+              "PSY 360"
+            ],
+            [
+              "CSS 211"
+            ],
+            [
+              "MAT 320"
+            ]
+          ]
+        },
+        {
+          "text": "Choose at least two life science courses from the following list:",
+          "choose": 2,
+          "children": [
+            {
+              "label": "Anatomy",
+              "text": "Anatomy - BSC 361/L",
+              "options": [
+                [
+                  "BSC 361",
+                  "BSC 361L"
+                ]
+              ]
+            },
+            {
+              "label": "Cellular Biology",
+              "text": "Cellular Biology - BSC 360",
+              "options": [
+                [
+                  "BSC 360"
+                ]
+              ]
+            },
+            {
+              "label": "Embryology",
+              "text": "Embryology - BSC 465/L or BSC 466/L",
+              "options": [
+                [
+                  "BSC 465",
+                  "BSC 465L"
+                ],
+                [
+                  "BSC 466",
+                  "BSC 466L"
+                ]
+              ]
+            },
+            {
+              "label": "Genetics",
+              "text": "Genetics - BSC 370",
+              "options": [
+                [
+                  "BSC 370"
+                ]
+              ]
+            },
+            {
+              "label": "Histology",
+              "text": "Histology - BSC 461/L",
+              "options": [
+                [
+                  "BSC 461",
+                  "BSC 461L"
+                ]
+              ]
+            },
+            {
+              "label": "Immunology and Serology",
+              "text": "Immunology and Serology - BSC 486/L",
+              "options": [
+                [
+                  "BSC 486",
+                  "BSC 486L"
+                ]
+              ]
+            },
+            {
+              "label": "Infectious Diseases",
+              "text": "Infectious Diseases - BSC 403",
+              "options": [
+                [
+                  "BSC 403"
+                ]
+              ]
+            },
+            {
+              "label": "Microbiology",
+              "text": "Microbiology - BSC 282/L",
+              "options": [
+                [
+                  "BSC 282",
+                  "BSC 282L"
+                ]
+              ]
+            },
+            {
+              "label": "Molecular Biology",
+              "text": "Molecular Biology - BSC 476",
+              "options": [
+                [
+                  "BSC 476"
+                ]
+              ]
+            },
+            {
+              "label": "Neuroscience",
+              "text": "Neuroscience - BSC 457",
+              "options": [
+                [
+                  "BSC 457"
+                ]
+              ]
+            },
+            {
+              "label": "Pharmacology",
+              "text": "Pharmacology - BSC 460 or CHE 460",
+              "options": [
+                [
+                  "BSC 460"
+                ],
+                [
+                  "CHE 460"
+                ]
+              ]
+            },
+            {
+              "label": "Physiology",
+              "text": "Physiology - BSC 450 or 451 or 452 (only one physiology course will be counted by UMMC)",
+              "options": [
+                [
+                  "BSC 450"
+                ],
+                [
+                  "BSC 451"
+                ],
+                [
+                  "BSC 452"
+                ]
+              ]
+            },
+            {
+              "label": "Virology",
+              "text": "Virology - BSC 484/L or BSC 485/L",
+              "options": [
+                [
+                  "BSC 484",
+                  "BSC 484L"
+                ],
+                [
+                  "BSC 485",
+                  "BSC 485L"
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "milestones": [
+        "Completion of a series of specified courses with laboratories in Biology, Chemistry, Physics, Mathematics (BCPM) and other General Education Curriculum (GEC) courses",
+        "Completion of a baccalaureate degree; although consideration is given to exceptional students with a minimum of 90 credit hours, an undergraduate degree is strongly preferred",
+        "A competitive GPA, both overall and in the BCPM areas (Biology, Chemistry, Physics, and Mathematics)",
+        "Competitive scores from the nationally administered Medical College Admission Test (MCAT)",
+        "Evidence of compassion for others as often shown through community service and/or employment",
+        "Multiple positive character traits, such as effective communication skills, initiative, ability to work with diverse populations, integrity, ability to manage heavy workloads, leadership ability, motivation (including motivation to enter the medical field), and a desire to learn"
+      ],
+      "related_programs": [
+        "biological-sciences",
+        "chemistry"
+      ],
+      "source_url": "https://www.usm.edu/preprofessional/medicine.php",
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "occupational-therapy",
+      "name": "Pre-Occupational Therapy",
+      "summary": "From hand therapy and treating people with low vision to working with children or older adults, as you become an occupational therapist, you'll show injured or disabled patients how to adapt to their new reality through the change of movements and therapeutic activities.",
+      "requirements": [
+        {
+          "label": "Introduction to Psychology",
+          "text": "PSY 110 - Introduction to Psychology",
+          "options": [
+            [
+              "PSY 110"
+            ]
+          ]
+        },
+        {
+          "label": "Statistics for the Social and Behavioral Sciences",
+          "text": "PSY 360 or MAT 115 - Statistics for the Social and Behavioral Sciences or Elementary Statistics",
+          "options": [
+            [
+              "PSY 360"
+            ],
+            [
+              "MAT 115"
+            ]
+          ]
+        },
+        {
+          "label": "Developmental Psychology",
+          "text": "PSY 275 - Developmental Psychology",
+          "options": [
+            [
+              "PSY 275"
+            ]
+          ]
+        },
+        {
+          "label": "Anatomy and Physiology I and II",
+          "text": "BSC 250/L \u0026 251/L - Anatomy and Physiology I and II",
+          "options": [
+            [
+              "BSC 250",
+              "BSC 250L",
+              "BSC 251",
+              "BSC 251L"
+            ]
+          ]
+        },
+        {
+          "label": "General Physics I",
+          "text": "PHY 111/L - General Physics I or Advanced Kinesiology Course (300 or above)",
+          "options": [
+            [
+              "PHY 111",
+              "PHY 111L"
+            ]
+          ]
+        },
+        {
+          "text": "Advanced biological or physical science (300+)",
+          "open": true
+        },
+        {
+          "label": "Medical Terminology",
+          "text": "MLS 201 - Medical Terminology (recommended but not required)",
+          "options": [
+            [
+              "MLS 201"
+            ]
+          ],
+          "optional": true
+        }
+      ],
+      "related_programs": [
+        "recreational-therapy",
+        "kinesiology-sport-coaching-education"
+      ],
+      "source_url": "https://www.usm.edu/preprofessional/occupational-therapy.php",
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "optometry",
+      "name": "Pre-Optometry",
+      "summary": "As you become an optometrist, you'll play a major role in an individual’s overall health and well-being as the primary eye and vision care provider. Through academic and clinical training you will aquire the skills needed to perform eye examinations, vision tests, and detect medical eye care conditions or systemic diseases, such as diabetes and hypertension.",
+      "note": "The prerequisites for admission to optometry programs are somewhat different, depending on the school, so students must consult the specific admission requirements and application deadlines for the school(s) to which they plan to apply.",
+      "requirements": [
+        {
+          "label": "General Biology",
+          "text": "General Biology - BSC 110/L \u0026 111/L",
+          "options": [
+            [
+              "BSC 110",
+              "BSC 110L",
+              "BSC 111",
+              "BSC 111L"
+            ]
+          ]
+        },
+        {
+          "label": "Microbiology",
+          "text": "Microbiology - BSC 282/L",
+          "options": [
+            [
+              "BSC 282",
+              "BSC 282L"
+            ]
+          ]
+        },
+        {
+          "label": "General Chemistry",
+          "text": "General Chemistry - CHE 106/L \u0026 107/L",
+          "options": [
+            [
+              "CHE 106",
+              "CHE 106L",
+              "CHE 107",
+              "CHE 107L"
+            ]
+          ]
+        },
+        {
+          "label": "Organic Chemistry",
+          "text": "Organic Chemistry - Che 255/L",
+          "options": [
+            [
+              "CHE 255",
+              "CHE 255L"
+            ]
+          ]
+        },
+        {
+          "label": "Biochemistry",
+          "text": "Biochemistry - CHE 420 or 421",
+          "options": [
+            [
+              "CHE 420"
+            ],
+            [
+              "CHE 421"
+            ]
+          ]
+        },
+        {
+          "label": "General Physics or Physics with Calculus",
+          "text": "General Physics or Physics with Calculus - PHY 111/L \u0026 112/L OR 201/L \u0026 202/L",
+          "options": [
+            [
+              "PHY 111",
+              "PHY 111L",
+              "PHY 112",
+              "PHY 112L"
+            ],
+            [
+              "PHY 201",
+              "PHY 201L",
+              "PHY 202",
+              "PHY 202L"
+            ]
+          ]
+        },
+        {
+          "label": "Calculus I",
+          "text": "Calculus I - MAT 167",
+          "options": [
+            [
+              "MAT 167"
+            ]
+          ]
+        },
+        {
+          "label": "Statistics",
+          "text": "Statistics - PSY 360 or another statistics course",
+          "options": [
+            [
+              "PSY 360"
+            ]
+          ],
+          "open": true
+        },
+        {
+          "label": "English Composition",
+          "text": "English Composition - ENG 101 \u0026 102",
+          "options": [
+            [
+              "ENG 101",
+              "ENG 102"
+            ]
+          ]
+        },
+        {
+          "label": "Introduction to Psychology",
+          "text": "Introduction to Psychology - PSY 110",
+          "options": [
+            [
+              "PSY 110"
+            ]
+          ]
+        },
+        {
+          "text": "Two social/behavioral science courses (6h total in sociology, economics, anthropology, history, political science, or additional psychology)"
+        }
+      ],
+      "footnotes": [
+        "The prerequisite for CHE 420 is one semester of organic chemistry (CHE 255), whereas the prerequisite for CHE 421 is two semesters of organic (CHE 255 \u0026 256).",
+        "MAT 114 may be accepted; students should discuss this with admissions at UAB."
+      ],
+      "related_programs": [
+        "chemistry",
+        "physics"
+      ],
+      "source_url": "https://www.usm.edu/preprofessional/optometry.php",
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "pharmacy",
+      "name": "Pre-Pharmacy",
+      "summary": "As you become a pharmacist, you'll primarily provide information about different medications and methods of treatment that follow drug therapy protocols and fit patients' needs, improve their health, and ensure safety.",
+      "note": "Students must consult the specific admission requirements and application deadlines for the school(s) to which they plan to apply.",
+      "requirements": [
+        {
+          "label": "English Composition",
+          "text": "English Composition - ENG 101 \u0026 ENG 102",
+          "options": [
+            [
+              "ENG 101",
+              "ENG 102"
+            ]
+          ]
+        },
+        {
+          "text": "General Education courses - 12 hours",
+          "hours": 12
+        },
+        {
+          "label": "General Chemistry",
+          "text": "General Chemistry - CHE 106/L \u0026 107/L",
+          "options": [
+            [
+              "CHE 106",
+              "CHE 106L",
+              "CHE 107",
+              "CHE 107L"
+            ]
+          ]
+        },
+        {
+          "label": "Organic Chemistry",
+          "text": "Organic Chemistry - CHE 255/L \u0026 256/L",
+          "options": [
+            [
+              "CHE 255",
+              "CHE 255L",
+              "CHE 256",
+              "CHE 256L"
+            ]
+          ]
+        },
+        {
+          "label": "Public Speaking",
+          "text": "Public Speaking - CMS 111",
+          "options": [
+            [
+              "CMS 111"
+            ]
+          ]
+        },
+        {
+          "label": "Economics",
+          "text": "Economics - ECO 202",
+          "options": [
+            [
+              "ECO 202"
+            ]
+          ]
+        },
+        {
+          "label": "General Biology",
+          "text": "General Biology - BSC 110/L \u0026 111/L",
+          "options": [
+            [
+              "BSC 110",
+              "BSC 110L",
+              "BSC 111",
+              "BSC 111L"
+            ]
+          ]
+        },
+        {
+          "label": "Calculus",
+          "text": "Calculus - MAT 167",
+          "options": [
+            [
+              "MAT 167"
+            ]
+          ]
+        },
+        {
+          "label": "General Physics",
+          "text": "General Physics - PHY 111/L",
+          "options": [
+            [
+              "PHY 111",
+              "PHY 111L"
+            ]
+          ]
+        },
+        {
+          "label": "Statistics",
+          "text": "Statistics - PSY 360 or MAT 115",
+          "options": [
+            [
+              "PSY 360"
+            ],
+            [
+              "MAT 115"
+            ]
+          ]
+        },
+        {
+          "label": "Human Anatomy \u0026 Physiology",
+          "text": "Human Anatomy \u0026 Physiology - BSC 250/L \u0026 BSC 251/L",
+          "options": [
+            [
+              "BSC 250",
+              "BSC 250L",
+              "BSC 251",
+              "BSC 251L"
+            ]
+          ]
+        },
+        {
+          "text": "Social Sciences - PSY, SOC, ANT, PS - 6 hours",
+          "hours": 6
+        }
+      ],
+      "related_programs": [
+        "health-sciences",
+        "biological-sciences",
+        "chemistry"
+      ],
+      "source_url": "https://www.usm.edu/preprofessional/pharmacy.php",
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "physical-therapy",
+      "name": "Pre-Physical Therapy",
+      "summary": "As you become a Physical Therapist, you'll play an important role in injury recovery and the restoration of specific movements and improve quality of life through prescribed exercise, hands-on care, and patient education. After evaluating patients, you'll develop recovery plans that are designed for each patient's specific needs to improve their mobility through plans of care.",
+      "note": "Required courses include the following:",
+      "requirements": [
+        {
+          "label": "General Biology",
+          "text": "General Biology - BSC 110/L \u0026 111/L",
+          "options": [
+            [
+              "BSC 110",
+              "BSC 110L",
+              "BSC 111",
+              "BSC 111L"
+            ]
+          ]
+        },
+        {
+          "label": "General Chemistry",
+          "text": "General Chemistry - CHE 106/L \u0026 107/L",
+          "options": [
+            [
+              "CHE 106",
+              "CHE 106L",
+              "CHE 107",
+              "CHE 107L"
+            ]
+          ]
+        },
+        {
+          "label": "General Physics or Physics with Calculus",
+          "text": "General Physics or Physics with Calculus - PHY 111/L \u0026 112/L OR PHY 201/L \u0026 202/L",
+          "options": [
+            [
+              "PHY 111",
+              "PHY 111L",
+              "PHY 112",
+              "PHY 112L"
+            ],
+            [
+              "PHY 201",
+              "PHY 201L",
+              "PHY 202",
+              "PHY 202L"
+            ]
+          ]
+        },
+        {
+          "label": "Advanced physical or biological science with laboratory",
+          "text": "Advanced physical or biological science with laboratory (1 course at or above the 300 level)"
+        },
+        {
+          "label": "Statistics",
+          "text": "Statistics - PSY 360 or other statistics course",
+          "options": [
+            [
+              "PSY 360"
+            ]
+          ],
+          "open": true
+        }
+      ],
+      "milestones": [
+        "Applicants must complete a baccalaureate degree from an accredited college or university prior to matriculation.",
+        "Students must provide evidence of at least 40 hours observation in at least two physical therapy clinical departments or practices in their year of undergraduate study at the time of application. A maximum of 20 hours for each site is credited towards meeting the 40 hour requirement. Evidence must be provided using the Verification of Observation Form.",
+        "Applicants must have an overall minimum GPA of 3.0 on a 4.0 scale. (On average, applicants interviewed and accepted typically have a GPA of 3.5 or above.)",
+        "Prerequisite courses must have been taken within the past ten years. AP or CLEP courses are not accepted. Students must make a minimum grade of C on all prerequisite courses and have a minimum prerequisite GPA of 3.0.",
+        "More than half of the prerequisite courses must be completed by the end of the Fall semester when the application is submitted.",
+        "Applicants must submit official Graduate Record Examination (GRE) scores.",
+        "Applicants must be able to meet the technical standards and will complete an interview if accepted."
+      ],
+      "footnotes": [
+        "The advanced science must be taken at a four-year institution. Science courses for non-majors are not acceptable. Courses with labs are greatly recommended."
+      ],
+      "related_programs": [
+        "sports-medicine"
+      ],
+      "source_url": "https://www.usm.edu/preprofessional/physical-therapy.php",
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "physician-assistant",
+      "name": "Pre-Physician Assistant",
+      "summary": "As you become a physician assistant, you will examine, diagnose, and treat patients with the approval of a doctor. Depending on your specialty, physician assistants may work in all areas of medicine, including primary care and family medicine, emergency medicine, surgery, and psychiatry.",
+      "note": "The following list of prerequisite courses are required for many PA programs. Since prerequisite courses can vary, students interested in pursuing a PA program should remember to check with their desired schools for their specific requirements.",
+      "requirements": [
+        {
+          "label": "Anatomy and Physiology",
+          "text": "Anatomy and Physiology - BSC 250/L \u0026 BSC 251/L",
+          "options": [
+            [
+              "BSC 250",
+              "BSC 250L",
+              "BSC 251",
+              "BSC 251L"
+            ]
+          ]
+        },
+        {
+          "label": "Microbiology",
+          "text": "Microbiology - BSC 282/L",
+          "options": [
+            [
+              "BSC 282",
+              "BSC 282L"
+            ]
+          ]
+        },
+        {
+          "label": "General Chemistry",
+          "text": "General Chemistry - CHE 106/L \u0026 CHE 107/L",
+          "options": [
+            [
+              "CHE 106",
+              "CHE 106L",
+              "CHE 107",
+              "CHE 107L"
+            ]
+          ]
+        },
+        {
+          "label": "Organic Chemistry",
+          "text": "Organic Chemistry - CHE 255/L",
+          "options": [
+            [
+              "CHE 255",
+              "CHE 255L"
+            ]
+          ]
+        },
+        {
+          "label": "Genetics",
+          "text": "Genetics - BSC 370",
+          "options": [
+            [
+              "BSC 370"
+            ]
+          ]
+        },
+        {
+          "label": "Statistics",
+          "text": "Statistics - PSY 360 or other statistics course",
+          "options": [
+            [
+              "PSY 360"
+            ]
+          ],
+          "open": true
+        },
+        {
+          "label": "Medical Terminology",
+          "text": "Medical Terminology - MLS 201",
+          "options": [
+            [
+              "MLS 201"
+            ]
+          ]
+        }
+      ],
+      "milestones": [
+        "A minimum of two years of undergraduate study (though a bachelor's is usually preferred even if not required)",
+        "A minimum overall GPA of 3.0 (with competitive applicants generally sitting at approximately 3.5)",
+        "Completion of prerequisite coursework with a grade of C or higher",
+        "GRE or PA-CAT scores",
+        "Three letters of recommendation",
+        "Approximately 1,000 hours of direct patient care experience, with supplemental shadowing hours",
+        "A successful background check",
+        "The ability to meet each program's technical standards"
+      ],
+      "footnotes": [
+        "General Biology I - BSC 110/L \u0026 General Biology II - BSC 111/L are pre-requisites for all upper-level biology courses."
+      ],
+      "related_programs": [
+        "biological-sciences",
+        "health-sciences"
+      ],
+      "source_url": "https://www.usm.edu/preprofessional/physician-assistant.php",
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "pre-pharmacy",
+      "name": "Pre-Pharmacy (Ole Miss)",
+      "variant": "Ole Miss",
+      "summary": "The pre-pharmacy curriculum is just a list of courses that are required for admission to dental school. It is NOT an academic major, a minor, or an emphasis area.",
+      "note": "The following list of Required Courses* meets only the minimum requirements for admission to the Ole Miss Pharmacy Program in Oxford/Jackson. Students must consult the specific admission requirements and application deadlines for the school(s) to which they plan to apply, including Ole Miss.",
+      "requirements": [
+        {
+          "label": "English Composition",
+          "text": "English Composition - ENG 101 \u0026 102",
+          "options": [
+            [
+              "ENG 101",
+              "ENG 102"
+            ]
+          ]
+        },
+        {
+          "label": "General Chemistry",
+          "text": "General Chemistry - CHE 106/L \u0026 107/L",
+          "options": [
+            [
+              "CHE 106",
+              "CHE 106L",
+              "CHE 107",
+              "CHE 107L"
+            ]
+          ]
+        },
+        {
+          "label": "Organic Chemistry",
+          "text": "Organic Chemistry - CHE 255/L \u0026 256/L",
+          "options": [
+            [
+              "CHE 255",
+              "CHE 255L",
+              "CHE 256",
+              "CHE 256L"
+            ]
+          ]
+        },
+        {
+          "label": "Biochemistry",
+          "text": "Biochemistry - CHE 421 \u0026 422",
+          "options": [
+            [
+              "CHE 421",
+              "CHE 422"
+            ]
+          ]
+        },
+        {
+          "label": "General Biology",
+          "text": "General Biology - BSC 110/L \u0026 111/L",
+          "options": [
+            [
+              "BSC 110",
+              "BSC 110L",
+              "BSC 111",
+              "BSC 111L"
+            ]
+          ]
+        },
+        {
+          "label": "Public Speaking",
+          "text": "Public Speaking - CMS 111",
+          "options": [
+            [
+              "CMS 111"
+            ]
+          ]
+        },
+        {
+          "label": "Calculus",
+          "text": "Calculus - MAT 167",
+          "options": [
+            [
+              "MAT 167"
+            ]
+          ]
+        },
+        {
+          "label": "Economics",
+          "text": "Economics - ECO 202",
+          "options": [
+            [
+              "ECO 202"
+            ]
+          ]
+        },
+        {
+          "label": "General Physics or Physics with Calculus",
+          "text": "General Physics or Physics with Calculus - PHY 111/L \u0026 112/L or PHY 201/L \u0026 202/L",
+          "options": [
+            [
+              "PHY 111",
+              "PHY 111L",
+              "PHY 112",
+              "PHY 112L"
+            ],
+            [
+              "PHY 201",
+              "PHY 201L",
+              "PHY 202",
+              "PHY 202L"
+            ]
+          ]
+        },
+        {
+          "label": "Statistics",
+          "text": "Statistics - PSY 360 or MAT 115 or MAT 320 or DPH 440",
+          "options": [
+            [
+              "PSY 360"
+            ],
+            [
+              "MAT 115"
+            ],
+            [
+              "MAT 320"
+            ],
+            [
+              "DPH 440"
+            ]
+          ]
+        },
+        {
+          "label": "Genetics",
+          "text": "Genetics - BSC 370 or BSC 475",
+          "options": [
+            [
+              "BSC 370"
+            ],
+            [
+              "BSC 475"
+            ]
+          ]
+        },
+        {
+          "label": "Medical Microbiology",
+          "text": "Medical Microbiology - BSC 283/L or BSC 481/L",
+          "options": [
+            [
+              "BSC 283",
+              "BSC 283L"
+            ],
+            [
+              "BSC 481",
+              "BSC 481L"
+            ]
+          ]
+        },
+        {
+          "label": "Human Physiology",
+          "text": "Human Physiology - BSC 451",
+          "options": [
+            [
+              "BSC 451"
+            ]
+          ]
+        },
+        {
+          "label": "Healthcare Ethics",
+          "text": "Healthcare Ethics - PHI 452",
+          "options": [
+            [
+              "PHI 452"
+            ]
+          ]
+        },
+        {
+          "label": "Cell Biology",
+          "text": "Cell Biology - BSC 360",
+          "options": [
+            [
+              "BSC 360"
+            ]
+          ]
+        },
+        {
+          "label": "Immunology and Serology",
+          "text": "Immunology and Serology - BSC 486",
+          "options": [
+            [
+              "BSC 486"
+            ]
+          ]
+        },
+        {
+          "text": "Social science electives (6 hours total)",
+          "hours": 6
+        },
+        {
+          "text": "Humanities and fine arts electives (12 hours total)",
+          "hours": 12
+        }
+      ],
+      "milestones": [
+        "Admission to pharmacy schools is not solely determined by prerequisites. Other factors are weighed as well, such as GPA (overall and science specific), Pharmacy College Admissions Test (PCAT) scores, evidence of care for others through service and/or employment experiences, leadership roles, observation and shadowing experiences, and other personal characteristics. Gaining entrance into pharmacy school is highly competitive, and students who are accepted usually surpass the minimum requirements."
+      ],
+      "footnotes": [
+        "PHI 452 (Health Care Ethics) is taught sporadically on the Hattiesburg and Gulf Park campuses. Students must check the course schedule guide each year to find a course in advance or plan to take a biomedical ethics course at another university."
+      ],
+      "source_url": "https://www.usm.edu/preprofessional/pre-pharmacy.php",
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "pre-veterinary",
+      "name": "Pre-Veterinary",
+      "summary": "Veterinary schools do not require a particular major. Although most pre-veterinary students choose an academic major in one of the sciences, such as Biological Sciences or the Biochemistry emphasis of Chemistry, other majors are acceptable including those in the humanities, social sciences, or business. Students should select the major in which they feel the most comfortable and in which they would like to work if they are not accepted into veterinary school.",
+      "note": "The following list of courses meets only the minimum requirements for admission to the Mississippi State University College of Veterinary Medicine near Starkville, MS. Students must consult the specific admission requirements and application deadlines for the school(s) to which they plan to apply, including MSU.",
+      "requirements": [
+        {
+          "label": "English Composition",
+          "text": "English Composition - ENG 101 \u0026 102",
+          "options": [
+            [
+              "ENG 101",
+              "ENG 102"
+            ]
+          ]
+        },
+        {
+          "text": "Speech OR Technical Writing",
+          "open": true
+        },
+        {
+          "text": "Two Mathematics courses at or above MAT 101"
+        },
+        {
+          "label": "General Biology",
+          "text": "General Biology - BSC 110/L \u0026 111/L",
+          "options": [
+            [
+              "BSC 110",
+              "BSC 110L",
+              "BSC 111",
+              "BSC 111L"
+            ]
+          ]
+        },
+        {
+          "label": "Microbiology",
+          "text": "Microbiology - BSC 282/L",
+          "options": [
+            [
+              "BSC 282",
+              "BSC 282L"
+            ]
+          ]
+        },
+        {
+          "label": "General Chemistry",
+          "text": "General Chemistry - CHE 106/L \u0026 107/L",
+          "options": [
+            [
+              "CHE 106",
+              "CHE 106L",
+              "CHE 107",
+              "CHE 107L"
+            ]
+          ]
+        },
+        {
+          "label": "Organic Chemistry",
+          "text": "Organic Chemistry - CHE 255/L \u0026 256/L",
+          "options": [
+            [
+              "CHE 255",
+              "CHE 255L",
+              "CHE 256",
+              "CHE 256L"
+            ]
+          ]
+        },
+        {
+          "label": "Biochemistry",
+          "text": "Biochemistry - CHE 420/L",
+          "options": [
+            [
+              "CHE 420",
+              "CHE 420L"
+            ]
+          ]
+        },
+        {
+          "label": "General Physics",
+          "text": "General Physics - PHY 111/L \u0026 112/L OR 201/L \u0026 202/L",
+          "options": [
+            [
+              "PHY 111",
+              "PHY 111L",
+              "PHY 112",
+              "PHY 112L"
+            ],
+            [
+              "PHY 201",
+              "PHY 201L",
+              "PHY 202",
+              "PHY 202L"
+            ]
+          ]
+        },
+        {
+          "text": "Three to four advanced science electives (12 hours total)",
+          "hours": 12
+        },
+        {
+          "text": "Electives in the humanities, social sciences, and fine arts (15 hours total)",
+          "hours": 15
+        }
+      ],
+      "milestones": [
+        "Completion of a series of specified courses in Biology, Chemistry, Physics, Mathematics (BCPM) and English with no grade lower than a C",
+        "Completion of a baccalaureate degree (although consideration is occasionally given to exceptional students with 79+ credit hours)",
+        "A competitive GPA (typically around 3.6, but a minimum 2.8) in BCPM courses and overall",
+        "Multiple positive character traits, such as honesty, integrity, ethics, compassion, leadership ability, and motivation",
+        "Competitive scores from the nationally administered Graduate Record Examinations (GRE)",
+        "Three letters of evaluation from professors and/or veterinary professionals",
+        "Experience working in a veterinary office as well as experience in animal handling (outside of a veterinary office)",
+        "Active participation in community service"
+      ],
+      "related_programs": [
+        "chemistry"
+      ],
+      "source_url": "https://www.usm.edu/preprofessional/pre-veterinary.php",
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "nursing",
+      "name": "Pre-Nursing (BSN)",
+      "summary": "Courses the School of Professional Nursing Practice checks before admitting students to the BSN program.",
+      "note": "USM's checklist says it is not an official University document and is for unofficial review only.",
+      "requirements": [
+        {
+          "label": "General Chemistry",
+          "text": "CHE 106: General Chemistry OR CHE 110: Fund. of General, Organic and Biochemistry. (CHE 1213/1211; 1214; 1214H)",
+          "options": [
+            [
+              "CHE 106"
+            ],
+            [
+              "CHE 110"
+            ]
+          ]
+        },
+        {
+          "label": "General Chemistry Lab",
+          "text": "CHE 106L: General Chemistry Lab OR CHE 110L: Fund. of General, Organic, and Biochemistry Lab.",
+          "options": [
+            [
+              "CHE 106L"
+            ],
+            [
+              "CHE 110L"
+            ]
+          ]
+        },
+        {
+          "label": "Human Anatomy and Physiology I",
+          "text": "BSC 250: Human Anatomy and Physiology I (BIO 2513/2511/2514)",
+          "options": [
+            [
+              "BSC 250"
+            ]
+          ]
+        },
+        {
+          "label": "Human Anatomy and Physiology I Lab",
+          "text": "BSC 250L: Human Anatomy and Physiology I Lab",
+          "options": [
+            [
+              "BSC 250L"
+            ]
+          ]
+        },
+        {
+          "label": "Human Anatomy and Physiology II",
+          "text": "BSC 251: Human Anatomy and Physiology II (BIO 2523/2521/2524)",
+          "options": [
+            [
+              "BSC 251"
+            ]
+          ]
+        },
+        {
+          "label": "Human Anatomy and Physiology II Lab",
+          "text": "BSC 251L: Human Anatomy and Physiology II Lab",
+          "options": [
+            [
+              "BSC 251L"
+            ]
+          ]
+        },
+        {
+          "label": "General Microbiology",
+          "text": "BSC 282: General Microbiology OR BSC 283: Microorganisms in Health and Disease (BIO 2923/2921 OR 2924)",
+          "options": [
+            [
+              "BSC 282"
+            ],
+            [
+              "BSC 283"
+            ]
+          ]
+        },
+        {
+          "label": "Microbiology Lab",
+          "text": "BSC 282L: Microbiology Lab OR BSC 283: Microorganisms in Health and Disease Lab",
+          "options": [
+            [
+              "BSC 282L"
+            ],
+            [
+              "BSC 283"
+            ]
+          ]
+        },
+        {
+          "label": "Composition I",
+          "text": "ENG 101: Composition I (ENG 1113 OR 1213)",
+          "options": [
+            [
+              "ENG 101"
+            ]
+          ]
+        },
+        {
+          "label": "Composition II",
+          "text": "ENG 102: Composition II (ENG 1123 OR 1223)",
+          "options": [
+            [
+              "ENG 102"
+            ]
+          ]
+        },
+        {
+          "label": "Art, Dance, Music",
+          "text": "ART 130, DAN 130, MUS 165, OR THE 100: Art, Dance, Music, OR Theatre Appreciation (ART 1113, DAN 1113, MUS 1113, or SPT 2233)",
+          "options": [
+            [
+              "ART 130"
+            ],
+            [
+              "DAN 130"
+            ],
+            [
+              "MUS 165"
+            ],
+            [
+              "THE 100"
+            ]
+          ]
+        },
+        {
+          "label": "CHOOSE TWO COURSES WITH DIFFERENT PREFIXES (SIX CREDIT HOURS REQUIRED)",
+          "text": "CHOOSE TWO COURSES WITH DIFFERENT PREFIXES (SIX CREDIT HOURS REQUIRED): HIS 101 OR HIS 102 OR PHI 151 OR REL 131 OR ENG 203: World Civilization I or II, Intro to Philosophy, Comparative Religion, or World Literature (HIS 1113, 1143, 1163, 1123, 1153, or 1173; PHI 2113 or 2613; ENG 2413, 2423, OR 2453)",
+          "choose": 2,
+          "children": [
+            {
+              "text": "HIS 101",
+              "options": [
+                [
+                  "HIS 101"
+                ]
+              ]
+            },
+            {
+              "text": "HIS 102",
+              "options": [
+                [
+                  "HIS 102"
+                ]
+              ]
+            },
+            {
+              "text": "PHI 151",
+              "options": [
+                [
+                  "PHI 151"
+                ]
+              ]
+            },
+            {
+              "text": "REL 131",
+              "options": [
+                [
+                  "REL 131"
+                ]
+              ]
+            },
+            {
+              "text": "ENG 203",
+              "options": [
+                [
+                  "ENG 203"
+                ]
+              ]
+            }
+          ],
+          "hours": 6
+        },
+        {
+          "label": "College Algebra",
+          "text": "MAT 101: College Algebra (MAT 1313)",
+          "options": [
+            [
+              "MAT 101"
+            ]
+          ]
+        },
+        {
+          "label": "Nutrition",
+          "text": "NFS 362: Nutrition (HEC 1253, FCS 1253, OR BIO 1613)",
+          "options": [
+            [
+              "NFS 362"
+            ]
+          ]
+        },
+        {
+          "label": "General Psychology",
+          "text": "PSY 110: General Psychology (PSY 1513)",
+          "options": [
+            [
+              "PSY 110"
+            ]
+          ]
+        },
+        {
+          "label": "Statistics",
+          "text": "PSY 360 OR DPH 440 OR CSS 211: Statistics (BAD 2323, MAT 2323) Course title must include the word \"Statistics\"",
+          "options": [
+            [
+              "PSY 360"
+            ],
+            [
+              "DPH 440"
+            ],
+            [
+              "CSS 211"
+            ]
+          ]
+        },
+        {
+          "label": "Development Psychology",
+          "text": "PSY 275: Development Psychology (EPY/PSY 2533)",
+          "options": [
+            [
+              "PSY 275"
+            ]
+          ]
+        },
+        {
+          "label": "Principles of Sociology",
+          "text": "SOC 101: Principles of Sociology (SOC 2113)",
+          "options": [
+            [
+              "SOC 101"
+            ]
+          ]
+        },
+        {
+          "label": "The Family",
+          "text": "SOC 214: The Family (SOC 2143)",
+          "options": [
+            [
+              "SOC 214"
+            ]
+          ]
+        }
+      ],
+      "footnotes": [
+        "Cannot be CHE 100. **From Transfer Institution, this must be the Chemistry for Pre-Med majors. *** Cannot be CDT 1513."
+      ],
+      "related_programs": [
+        "nursing"
+      ],
+      "source_url": "https://www.usm.edu/nursing-health-professions/forms/bsn_prerequisite_checklist_3-12-26.pdf",
+      "fetched_at": "2026-10-29"
+    }
+  ],
+  "programs": [
+    {
+      "slug": "accounting",
+      "title": "Accounting",
+      "college": "College of Business and Economic Development",
+      "school": "School of Accountancy",
+      "specializations": [
+        "Accounting BSBA"
+      ],
+      "campuses": [
+        "Hattiesburg or Online"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/accounting.php",
+      "catalog_links": [
+        {
+          "label": "Accounting BSBA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20763"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "allied-health",
+      "title": "Allied Health",
+      "college": "College of Nursing and Health Professions",
+      "school": "School of Health Professions",
+      "specializations": [
+        "Allied Health BAS"
+      ],
+      "campuses": [
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/allied-health.php",
+      "catalog_links": [
+        {
+          "label": "Allied Health BAS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20839"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "anthropology",
+      "title": "Anthropology",
+      "college": "College of Arts and Sciences",
+      "school": "School of Social Science and Global Studies",
+      "specializations": [
+        "Anthropology BA",
+        "Anthropology Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/anthropology.php",
+      "catalog_links": [
+        {
+          "label": "Anthropology BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20843"
+        },
+        {
+          "label": "Anthropology Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20451"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "applied-economics",
+      "title": "Applied Economics",
+      "college": "College of Arts and Sciences",
+      "school": "School of Social Science and Global Studies",
+      "specializations": [
+        "Applied Economics BS",
+        "Economics Minor",
+        "Economic Data Analysis Minor"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/applied-economics.php",
+      "catalog_links": [
+        {
+          "label": "Applied Economics BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20844"
+        },
+        {
+          "label": "Economics Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20479"
+        },
+        {
+          "label": "Economic Data Analysis Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20899"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "applied-technology",
+      "title": "Applied Technology",
+      "college": "College of Business and Economic Development",
+      "school": "School of Leadership",
+      "specializations": [
+        "Applied Technology BAS"
+      ],
+      "campuses": [
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/applied-technology.php",
+      "catalog_links": [
+        {
+          "label": "Applied Technology BAS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20813"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "architectural-engineering-technology",
+      "title": "Architectural Engineering Technology",
+      "college": "College of Arts and Sciences",
+      "school": "School of Construction and Design",
+      "specializations": [
+        "Architectural Engineering Technology BS",
+        "Architectural Engineering Technology Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/architectural-engineering-technology.php",
+      "catalog_links": [
+        {
+          "label": "Architectural Engineering Technology BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20782"
+        },
+        {
+          "label": "Architectural Engineering Technology Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20604"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "art",
+      "title": "Art",
+      "college": "College of Arts and Sciences",
+      "school": "School of Performing and Visual Arts",
+      "specializations": [
+        "Art BA",
+        "Studio Art BFA",
+        "Graphic Design BFA",
+        "Art History Minor",
+        "Art Minor",
+        "Ceramics Undergraduate Minor",
+        "Drawing Undergraduate Minor",
+        "Graphic Design Minor",
+        "Painting Undergraduate Minor",
+        "Sculpture Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/art.php",
+      "catalog_links": [
+        {
+          "label": "Art BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20821"
+        },
+        {
+          "label": "Studio Art BFA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20824"
+        },
+        {
+          "label": "Graphic Design BFA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20823"
+        },
+        {
+          "label": "Art History Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20454"
+        },
+        {
+          "label": "Art Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20453"
+        },
+        {
+          "label": "Ceramics Undergraduate Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=21474"
+        },
+        {
+          "label": "Drawing Undergraduate Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=21472"
+        },
+        {
+          "label": "Graphic Design Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20733"
+        },
+        {
+          "label": "Painting Undergraduate Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=21473"
+        },
+        {
+          "label": "Sculpture Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20888"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "biological-sciences",
+      "title": "Biological Sciences",
+      "college": "College of Arts and Sciences",
+      "school": "School of Biological, Environmental and Earth Sciences",
+      "specializations": [
+        "Biological Sciences (Biomedical Sciences) BS",
+        "Biological Sciences (Conservation Biology) BS",
+        "Biological Sciences BS",
+        "Biological Sciences Minor",
+        "Coastal Plain Plant Identification Undergraduate Badge"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Gulf Park"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/biological-sciences.php",
+      "catalog_links": [
+        {
+          "label": "Biological Sciences (Biomedical Sciences) BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20765"
+        },
+        {
+          "label": "Biological Sciences (Conservation Biology) BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20766"
+        },
+        {
+          "label": "Biological Sciences BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20764"
+        },
+        {
+          "label": "Biological Sciences Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20591"
+        },
+        {
+          "label": "Coastal Plain Plant Identification Undergraduate Badge",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20924"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "business-administration-entrepreneurship",
+      "title": "Entrepreneurship",
+      "college": "College of Business and Economic Development",
+      "school": "School of Management",
+      "specializations": [
+        "Entrepreneurship BSBA",
+        "Entrepreneurship Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/business-administration-entrepreneurship.php",
+      "catalog_links": [
+        {
+          "label": "Entrepreneurship BSBA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20832"
+        },
+        {
+          "label": "Entrepreneurship Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20917"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "business-administration",
+      "title": "Business Administration",
+      "college": "College of Business and Economic Development",
+      "school": "School of Management",
+      "specializations": [
+        "Business Administration BSBA",
+        "Business Administration Minor"
+      ],
+      "campuses": [
+        "Gulf Park",
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/business-administration.php",
+      "catalog_links": [
+        {
+          "label": "Business Administration BSBA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20833"
+        },
+        {
+          "label": "Business Administration Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20526"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "chemistry",
+      "title": "Chemistry",
+      "college": "College of Arts and Sciences",
+      "school": "School of Mathematics and Natural Sciences",
+      "specializations": [
+        "Chemistry BS",
+        "Biochemistry BS",
+        "Chemistry Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/chemistry.php",
+      "catalog_links": [
+        {
+          "label": "Chemistry BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20802"
+        },
+        {
+          "label": "Biochemistry BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20803"
+        },
+        {
+          "label": "Chemistry Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20593"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "communication-studies",
+      "title": "Communication Studies",
+      "college": "College of Arts and Sciences",
+      "school": "School of Media and Communication",
+      "specializations": [
+        "Communication Studies BA",
+        "Communication Studies BS",
+        "Communication Studies Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/communication-studies.php",
+      "catalog_links": [
+        {
+          "label": "Communication Studies BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20876"
+        },
+        {
+          "label": "Communication Studies BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20877"
+        },
+        {
+          "label": "Communication Studies Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20455"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "computer-engineering",
+      "title": "Computer Engineering",
+      "college": "College of Arts and Sciences",
+      "school": "School of Computing Sciences and Computer Engineering",
+      "specializations": [
+        "Computer Engineering BS",
+        "Software Engineering Minor",
+        "Software Engineering Certificate",
+        "Information Security Minor",
+        "Information Technology Minor",
+        "Computer Networking Certificate",
+        "Computer Engineering Minor"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/computer-engineering.php",
+      "catalog_links": [
+        {
+          "label": "Computer Engineering BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20809"
+        },
+        {
+          "label": "Software Engineering Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20597"
+        },
+        {
+          "label": "Software Engineering Certificate",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20895"
+        },
+        {
+          "label": "Information Security Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20616"
+        },
+        {
+          "label": "Information Technology Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20601"
+        },
+        {
+          "label": "Computer Networking Certificate",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20894"
+        },
+        {
+          "label": "Computer Engineering Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20952"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "computer-science",
+      "title": "Computer Science",
+      "college": "College of Arts and Sciences",
+      "school": "School of Computing Sciences and Computer Engineering",
+      "specializations": [
+        "Computer Science BS",
+        "Computer Science Minor"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/computer-science.php",
+      "catalog_links": [
+        {
+          "label": "Computer Science BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20810"
+        },
+        {
+          "label": "Computer Science Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20596"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "construction-management",
+      "title": "Construction Management",
+      "college": "College of Arts and Sciences",
+      "school": "School of Construction and Design",
+      "specializations": [
+        "Construction Management BS",
+        "Construction Management Minor"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/construction-management.php",
+      "catalog_links": [
+        {
+          "label": "Construction Management BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20783"
+        },
+        {
+          "label": "Construction Management Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20884"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "crime-scene-investigation",
+      "title": "Crime Scene Investigation",
+      "college": "College of Arts and Sciences",
+      "school": "School of Criminal Justice, Forensic Science and Security",
+      "specializations": [
+        "Crime Scene Investigation BS"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/crime-scene-investigation.php",
+      "catalog_links": [
+        {
+          "label": "Crime Scene Investigation BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20790"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "criminal-justice",
+      "title": "Criminal Justice",
+      "college": "College of Arts and Sciences",
+      "school": "School of Criminal Justice, Forensic Science and Security",
+      "specializations": [
+        "Criminal Justice BA",
+        "Criminal Justice Minor",
+        "Security Studies Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/criminal-justice.php",
+      "catalog_links": [
+        {
+          "label": "Criminal Justice BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20785"
+        },
+        {
+          "label": "Criminal Justice Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20587"
+        },
+        {
+          "label": "Security Studies Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20904"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "cybersecurity",
+      "title": "Cybersecurity",
+      "college": "College of Arts and Sciences",
+      "school": "School of Computing Sciences and Computer Engineering",
+      "specializations": [
+        "Cybersecurity BAS",
+        "Cybersecurity Certificate"
+      ],
+      "campuses": [
+        "Online 100%",
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/cybersecurity.php",
+      "catalog_links": [
+        {
+          "label": "Cybersecurity BAS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20913"
+        },
+        {
+          "label": "Cybersecurity Certificate",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20893"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "dance",
+      "title": "Dance",
+      "college": "College of Arts and Sciences",
+      "school": "School of Performing and Visual Arts",
+      "specializations": [
+        "Dance BFA",
+        "Dance Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/dance.php",
+      "catalog_links": [
+        {
+          "label": "Dance BFA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20825"
+        },
+        {
+          "label": "Dance Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20456"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "digital-journalism",
+      "title": "Digital Journalism",
+      "college": "College of Arts and Sciences",
+      "school": "School of Media and Communication",
+      "specializations": [
+        "Digital Journalism BA",
+        "Digital Journalism Minor",
+        "Digital Innovation Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/digital-journalism.php",
+      "catalog_links": [
+        {
+          "label": "Digital Journalism BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20882"
+        },
+        {
+          "label": "Digital Journalism Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20473"
+        },
+        {
+          "label": "Digital Innovation Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20926"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "early-childhood",
+      "title": "Early Childhood",
+      "college": "College of Education and Human Sciences",
+      "school": "School of Human Development and Family Science",
+      "specializations": [
+        "Early Childhood BS"
+      ],
+      "campuses": [
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/early-childhood.php",
+      "catalog_links": [
+        {
+          "label": "Early Childhood BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20780"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "elementary-education",
+      "title": "Elementary Education",
+      "college": "College of Education and Human Sciences",
+      "school": "School of Education",
+      "specializations": [
+        "Elementary Education BS",
+        "Special Education Minor"
+      ],
+      "campuses": [
+        "Gulf Park",
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/elementary-education.php",
+      "catalog_links": [
+        {
+          "label": "Elementary Education BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20855"
+        },
+        {
+          "label": "Special Education Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20753"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "english",
+      "title": "English",
+      "college": "College of Arts and Sciences",
+      "school": "School of Humanities",
+      "specializations": [
+        "English (English Education) BA",
+        "English BA",
+        "English Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/english.php",
+      "catalog_links": [
+        {
+          "label": "English (English Education) BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20792"
+        },
+        {
+          "label": "English BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20791"
+        },
+        {
+          "label": "English Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20457"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "family-science",
+      "title": "Family Science",
+      "college": "College of Education and Human Sciences",
+      "school": "School of Human Development and Family Science",
+      "specializations": [
+        "Family Science BS"
+      ],
+      "campuses": [
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/family-science.php",
+      "catalog_links": [
+        {
+          "label": "Family Science BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20781"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "film-studies",
+      "title": "Film Studies",
+      "college": "College of Arts and Sciences",
+      "school": "School of Media and Communication",
+      "specializations": [
+        "Film Studies BA",
+        "Film Minor"
+      ],
+      "campuses": [
+        "Gulf Park"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/film-studies.php",
+      "catalog_links": [
+        {
+          "label": "Film Studies BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20879"
+        },
+        {
+          "label": "Film Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20449"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "finance",
+      "title": "Finance",
+      "college": "College of Business and Economic Development",
+      "school": "School of Finance",
+      "specializations": [
+        "Finance BSBA",
+        "Personal Finance Certificate"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/finance.php",
+      "catalog_links": [
+        {
+          "label": "Finance BSBA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20830"
+        },
+        {
+          "label": "Personal Finance Certificate",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20890"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "forensic-biology",
+      "title": "Forensic Biology",
+      "college": "College of Arts and Sciences",
+      "school": "School of Criminal Justice, Forensic Science and Security",
+      "specializations": [
+        "Forensic Biology BS",
+        "Forensic Science Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/forensic-biology.php",
+      "catalog_links": [
+        {
+          "label": "Forensic Biology BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20788"
+        },
+        {
+          "label": "Forensic Science Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20589"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "forensic-chemistry",
+      "title": "Forensic Chemistry",
+      "college": "College of Arts and Sciences",
+      "school": "School of Criminal Justice, Forensic Science and Security",
+      "specializations": [
+        "Forensic Chemistry BS"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/forensic-chemistry.php",
+      "catalog_links": [
+        {
+          "label": "Forensic Chemistry BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20789"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "health-sciences",
+      "title": "Health Sciences",
+      "college": "College of Nursing and Health Professions",
+      "school": "School of Professional Nursing Practice",
+      "specializations": [
+        "Health Sciences (Health Care Studies) BS"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/health-sciences.php",
+      "catalog_links": [
+        {
+          "label": "Health Sciences (Health Care Studies) BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20862"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "healthcare-marketing",
+      "title": "Healthcare Marketing",
+      "college": "College of Business and Economic Development",
+      "school": "School of Marketing",
+      "specializations": [
+        "Healthcare Marketing BSBA"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/healthcare-marketing.php",
+      "catalog_links": [
+        {
+          "label": "Healthcare Marketing BSBA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20776"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "history",
+      "title": "History",
+      "college": "College of Arts and Sciences",
+      "school": "School of Humanities",
+      "specializations": [
+        "History (Social Studies Education) BA",
+        "History BA",
+        "History Minor",
+        "Public and Applied History Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/history.php",
+      "catalog_links": [
+        {
+          "label": "History (Social Studies Education) BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20794"
+        },
+        {
+          "label": "History BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20793"
+        },
+        {
+          "label": "History Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20463"
+        },
+        {
+          "label": "Public and Applied History Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20935"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "hospitality-tourism-management",
+      "title": "Hospitality and Tourism Management",
+      "college": "College of Business and Economic Development",
+      "school": "School of Marketing",
+      "specializations": [
+        "Hospitality and Tourism Management BSBA",
+        "Hospitality and Tourism Management Minor",
+        "Casino Resort Management and Marketing Certificate"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/hospitality-tourism-management.php",
+      "catalog_links": [
+        {
+          "label": "Hospitality and Tourism Management BSBA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20778"
+        },
+        {
+          "label": "Hospitality and Tourism Management Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20525"
+        },
+        {
+          "label": "Casino Resort Management and Marketing Certificate",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20741"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "human-resources-management",
+      "title": "Human Resources Management",
+      "college": "College of Business and Economic Development",
+      "school": "School of Management",
+      "specializations": [
+        "Human Resources Management BSBA",
+        "Management Minor"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/human-resources-management.php",
+      "catalog_links": [
+        {
+          "label": "Human Resources Management BSBA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20902"
+        },
+        {
+          "label": "Management Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20527"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "industrial-engineering-technology",
+      "title": "Industrial Engineering Technology",
+      "college": "College of Business and Economic Development",
+      "school": "School of Leadership",
+      "specializations": [
+        "Industrial Engineering Technology (Logistics) BS",
+        "Industrial Engineering Technology BS",
+        "Industrial Engineering Technology Minor"
+      ],
+      "campuses": [
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/industrial-engineering-technology.php",
+      "catalog_links": [
+        {
+          "label": "Industrial Engineering Technology (Logistics) BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20816"
+        },
+        {
+          "label": "Industrial Engineering Technology BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20815"
+        },
+        {
+          "label": "Industrial Engineering Technology Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20607"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "information-technology",
+      "title": "Information Technology",
+      "college": "College of Arts and Sciences",
+      "school": "School of Computing Sciences and Computer Engineering",
+      "specializations": [
+        "Information Technology BS",
+        "Information Technology Minor"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/information-technology.php",
+      "catalog_links": [
+        {
+          "label": "Information Technology BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20812"
+        },
+        {
+          "label": "Information Technology Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20601"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "interdisciplinary-studies",
+      "title": "Interdisciplinary Studies",
+      "college": "College of Arts and Sciences",
+      "school": "School of Interdisciplinary Studies and Professional Development",
+      "specializations": [
+        "Interdisciplinary Studies BIS"
+      ],
+      "campuses": [
+        "Gulf Park",
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/interdisciplinary-studies.php",
+      "catalog_links": [
+        {
+          "label": "Interdisciplinary Studies BIS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20814"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "interior-design",
+      "title": "Interior Design",
+      "college": "College of Arts and Sciences",
+      "school": "School of Construction and Design",
+      "specializations": [
+        "Interior Design BS",
+        "Interior Design Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/interior-design.php",
+      "catalog_links": [
+        {
+          "label": "Interior Design BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20784"
+        },
+        {
+          "label": "Interior Design Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20618"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "kinesiology-sport-coaching-education",
+      "title": "Kinesiology or Sport Coaching",
+      "college": "College of Education and Human Sciences",
+      "school": "School of Kinesiology and Nutrition",
+      "specializations": [
+        "Kinesiology (Exercise Science) BS",
+        "Physical Education K12 Teaching BS",
+        "Sport Coaching BS",
+        "Fitness and Nutrition BS",
+        "Strength and Conditioning Minor",
+        "Kinesiology Minor"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/kinesiology-sport-coaching-education.php",
+      "catalog_links": [
+        {
+          "label": "Kinesiology (Exercise Science) BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20858"
+        },
+        {
+          "label": "Physical Education K12 Teaching BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20859"
+        },
+        {
+          "label": "Sport Coaching BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20860"
+        },
+        {
+          "label": "Fitness and Nutrition BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20932"
+        },
+        {
+          "label": "Strength and Conditioning Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20743"
+        },
+        {
+          "label": "Kinesiology Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20901"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "kinesiotherapy",
+      "title": "Kinesiotherapy",
+      "college": "College of Nursing and Health Professions",
+      "school": "School of Health Professions",
+      "specializations": [
+        "Kinesiotherapy BS"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/kinesiotherapy.php",
+      "catalog_links": [
+        {
+          "label": "Kinesiotherapy BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20838"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "legal-studies",
+      "title": "Legal Studies",
+      "college": "College of Arts and Sciences",
+      "school": "School of Social Science and Global Studies",
+      "specializations": [
+        "Pre-Law Legal Studies BA",
+        "Legal Studies Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/legal-studies.php",
+      "catalog_links": [
+        {
+          "label": "Pre-Law Legal Studies BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20850"
+        },
+        {
+          "label": "Legal Studies Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20481"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "liberal-studies",
+      "title": "Liberal Studies",
+      "college": "College of Arts and Sciences",
+      "school": "School of Interdisciplinary Studies and Professional Development",
+      "specializations": [
+        "Liberal Studies BLS"
+      ],
+      "campuses": [
+        "Gulf Park",
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/liberal-studies.php",
+      "catalog_links": [
+        {
+          "label": "Liberal Studies Degree Requirements",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20735"
+        },
+        {
+          "label": "Liberal Studies BLS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20817"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "library-information-science",
+      "title": "Library and Information Science",
+      "college": "College of Education and Human Sciences",
+      "school": "School of Library and Information Science",
+      "specializations": [
+        "Library and Information Science BS",
+        "Library and Information Science Minor"
+      ],
+      "campuses": [
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/library-information-science.php",
+      "catalog_links": [
+        {
+          "label": "Library and Information Science BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20835"
+        },
+        {
+          "label": "Library and Information Science Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20542"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "management",
+      "title": "Management",
+      "college": "College of Business and Economic Development",
+      "school": "School of Management",
+      "specializations": [
+        "Management BSBA",
+        "Management Minor",
+        "Business Management Certificate"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/management.php",
+      "catalog_links": [
+        {
+          "label": "Management BSBA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20831"
+        },
+        {
+          "label": "Management Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20527"
+        },
+        {
+          "label": "Business Management Certificate",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20900"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "marine-biology",
+      "title": "Marine Biology",
+      "college": "College of Arts and Sciences",
+      "school": "School of Ocean Science and Engineering",
+      "specializations": [
+        "Marine Biology BS"
+      ],
+      "campuses": [
+        "Gulf Park"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/marine-biology.php",
+      "catalog_links": [
+        {
+          "label": "Marine Biology BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20769"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "marketing",
+      "title": "Marketing",
+      "college": "College of Business and Economic Development",
+      "school": "School of Marketing",
+      "specializations": [
+        "Marketing BSBA",
+        "Marketing Minor",
+        "Marketing Analytics Undergraduate Certificate",
+        "Professional Selling Undergraduate Certificate",
+        "Supply Chain Management Certificate",
+        "Social Media Content and Strategy Minor"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/marketing.php",
+      "catalog_links": [
+        {
+          "label": "Marketing BSBA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20775"
+        },
+        {
+          "label": "Marketing Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20529"
+        },
+        {
+          "label": "Marketing Analytics Undergraduate Certificate",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20929"
+        },
+        {
+          "label": "Professional Selling Undergraduate Certificate",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20732"
+        },
+        {
+          "label": "Supply Chain Management Certificate",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20891"
+        },
+        {
+          "label": "Social Media Content and Strategy Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20892"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "mathematics",
+      "title": "Mathematics",
+      "college": "College of Arts and Sciences",
+      "school": "School of Mathematics and Natural Sciences",
+      "specializations": [
+        "Mathematics BS",
+        "Mathematics Minor"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/mathematics.php",
+      "catalog_links": [
+        {
+          "label": "Mathematics BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20805"
+        },
+        {
+          "label": "Mathematics Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20805"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "media-entertainment-arts",
+      "title": "Media and Entertainment Arts",
+      "college": "College of Arts and Sciences",
+      "school": "School of Media and Communication",
+      "specializations": [
+        "Media and Entertainment Arts (Video Arts) BS",
+        "Media and Entertainment Arts (Media and Entertainment Arts Management) BS",
+        "Media and Entertainment Arts (Sound and Recording Arts) BS",
+        "Media and Entertainment Arts Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/media-entertainment-arts.php",
+      "catalog_links": [
+        {
+          "label": "Media and Entertainment Arts (Video Arts) BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20878"
+        },
+        {
+          "label": "Media and Entertainment Arts (Media and Entertainment Arts Management) BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20880"
+        },
+        {
+          "label": "Media and Entertainment Arts (Sound and Recording Arts) BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20881"
+        },
+        {
+          "label": "Media and Entertainment Arts Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20470"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "medical-laboratory-science",
+      "title": "Medical Laboratory Science",
+      "college": "College of Arts and Sciences",
+      "school": "School of Biological, Environmental and Earth Sciences",
+      "specializations": [
+        "Medical Laboratory Science BAS",
+        "Medical Laboratory Science BS"
+      ],
+      "campuses": [
+        "Online 100%",
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/medical-laboratory-science.php",
+      "catalog_links": [
+        {
+          "label": "Medical Laboratory Science BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20772"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "medicinal-pharmaceutical-chemistry",
+      "title": "Medicinal and Pharmaceutical Chemistry BA",
+      "college": "College of Arts and Sciences",
+      "school": "School of Mathematics and Natural Sciences",
+      "specializations": [
+        "Medicinal and Pharmaceutical Chemistry BA"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/medicinal-pharmaceutical-chemistry.php",
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "minors-certificates-interdisciplinary-studies",
+      "title": "Minors and Certificates - Interdisciplinary Studies",
+      "college": "College of Arts and Sciences",
+      "school": "School of Interdisciplinary Studies and Professional Development",
+      "specializations": [
+        "American Indian Studies Minor",
+        "Black Studies Minor",
+        "Disability Studies Minor",
+        "Health and Medical Humanities Minor",
+        "Human Rights Minor",
+        "Nonprofit Studies Minor",
+        "RISE to the Top! Certificate",
+        "Southern Miss Gulf Coast Scholars Certificate",
+        "Leadership Certificate",
+        "Women's and Gender Studies Minor"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Gulf Park"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/minors-certificates-interdisciplinary-studies.php",
+      "catalog_links": [
+        {
+          "label": "American Indian Studies Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20465"
+        },
+        {
+          "label": "Black Studies Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20466"
+        },
+        {
+          "label": "Disability Studies Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20896"
+        },
+        {
+          "label": "Health and Medical Humanities Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20897"
+        },
+        {
+          "label": "Human Rights Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20480"
+        },
+        {
+          "label": "Southern Miss Gulf Coast Scholars Certificate",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20936"
+        },
+        {
+          "label": "Leadership Certificate",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20734"
+        },
+        {
+          "label": "Women's and Gender Studies Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20468"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "music-education",
+      "title": "Music Education",
+      "college": "College of Arts and Sciences",
+      "school": "School of Music",
+      "specializations": [
+        "Music Education (Choral Licensure) BMEd",
+        "Music Education (Instrumental Licensure) BMEd"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/music-education.php",
+      "catalog_links": [
+        {
+          "label": "Music Education (Choral Licensure) BMEd",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20872"
+        },
+        {
+          "label": "Music Education (Instrumental Licensure) BMEd",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20873"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "music",
+      "title": "Music",
+      "college": "College of Arts and Sciences",
+      "school": "School of Music",
+      "specializations": [
+        "Music BA",
+        "Music BM",
+        "Music Education (Choral Licensure) BMEd",
+        "Music Education (Instrumental Licensure) BMEd",
+        "Applied Music Minor",
+        "Performance Undergraduate Certificate",
+        "Commercial Music Undergraduate Badge"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/music.php",
+      "catalog_links": [
+        {
+          "label": "Music BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20865"
+        },
+        {
+          "label": "Music BM",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20866"
+        },
+        {
+          "label": "Music Education (Choral Licensure) BMEd",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20872"
+        },
+        {
+          "label": "Music Education (Instrumental Licensure) BMEd",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20873"
+        },
+        {
+          "label": "Applied Music Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20475"
+        },
+        {
+          "label": "Performance Undergraduate Certificate",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20930"
+        },
+        {
+          "label": "Commercial Music Undergraduate Badge",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20956"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "nursing",
+      "title": "Nursing",
+      "college": "College of Nursing and Health Professions",
+      "school": "School of Professional Nursing Practice",
+      "specializations": [
+        "Nursing BSN",
+        "Nursing ABSN",
+        "Nursing (RN-BSN) BSN"
+      ],
+      "campuses": [
+        "Hattiesburg and Gulf Park",
+        "Gulf Park",
+        "Online"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/nursing.php",
+      "catalog_links": [
+        {
+          "label": "Nursing BSN",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20863"
+        },
+        {
+          "label": "Nursing ABSN",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20863"
+        },
+        {
+          "label": "Nursing (RN-BSN) BSN",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20864"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "nutrition-dietetics",
+      "title": "Nutrition and Dietetics",
+      "college": "College of Education and Human Sciences",
+      "school": "School of Kinesiology and Nutrition",
+      "specializations": [
+        "Nutrition and Dietetics BS"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/nutrition-dietetics.php",
+      "catalog_links": [
+        {
+          "label": "Nutrition and Dietetics BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20861"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "ocean-engineering",
+      "title": "Ocean Engineering",
+      "college": "College of Arts and Sciences",
+      "school": "School of Ocean Science and Engineering",
+      "specializations": [
+        "Ocean Engineering BS"
+      ],
+      "campuses": [
+        "Gulf Park"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/ocean-engineering.php",
+      "catalog_links": [
+        {
+          "label": "Ocean Engineering BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20799"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "oceanography-ocean-mapping",
+      "title": "Oceanography and Ocean Mapping BS",
+      "college": "College of Arts and Sciences",
+      "school": "School of Ocean Science and Engineering",
+      "specializations": [
+        "Oceanography and Ocean Mapping BS"
+      ],
+      "campuses": [
+        "Gulf Park"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/oceanography-ocean-mapping.php",
+      "catalog_links": [
+        {
+          "label": "Oceanography and Ocean Mapping BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20798"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "organizational-leadership",
+      "title": "Organizational Leadership",
+      "college": "College of Business and Economic Development",
+      "school": "School of Leadership",
+      "specializations": [
+        "Organizational Leadership BSBA"
+      ],
+      "campuses": [
+        "Gulf Park"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/organizational-leadership.php",
+      "catalog_links": [
+        {
+          "label": "Organizational Leadership BSBA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20919"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "paralegal-studies",
+      "title": "Paralegal Studies",
+      "college": "College of Arts and Sciences",
+      "school": "School of Social Science and Global Studies",
+      "specializations": [
+        "Paralegal Studies BA"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/paralegal-studies.php",
+      "catalog_links": [
+        {
+          "label": "Paralegal Studies BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20849"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "philosophy-religion-law",
+      "title": "Philosophy, Religion, and Law",
+      "college": "College of Arts and Sciences",
+      "school": "School of Humanities",
+      "specializations": [
+        "Philosophy, Religion, and Law BA",
+        "Philosophy Minor",
+        "Religion Minor"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/philosophy-religion-law.php",
+      "catalog_links": [
+        {
+          "label": "Philosophy, Religion, and Law BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20795"
+        },
+        {
+          "label": "Philosophy Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20476"
+        },
+        {
+          "label": "Religion Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20477"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "physics",
+      "title": "Physics",
+      "college": "College of Arts and Sciences",
+      "school": "School of Mathematics and Natural Sciences",
+      "specializations": [
+        "Physics BS",
+        "Physics Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/physics.php",
+      "catalog_links": [
+        {
+          "label": "Physics BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20808"
+        },
+        {
+          "label": "Physics Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20614"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "political-science",
+      "title": "Political Science",
+      "college": "College of Arts and Sciences",
+      "school": "School of Social Science and Global Studies",
+      "specializations": [
+        "Political Science BA",
+        "Political Science Minor",
+        "Campaign and Elections Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/political-science.php",
+      "catalog_links": [
+        {
+          "label": "Political Science BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20851"
+        },
+        {
+          "label": "Political Science Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20478"
+        },
+        {
+          "label": "Campaign and Elections Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20482"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "polymer-science-engineering",
+      "title": "Polymer Science and Engineering",
+      "college": "College of Arts and Sciences",
+      "school": "School of Polymer Science and Engineering",
+      "specializations": [
+        "Polymer Science and Engineering BS",
+        "Polymer Science Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/polymer-science-engineering.php",
+      "catalog_links": [
+        {
+          "label": "Polymer Science and Engineering BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20820"
+        },
+        {
+          "label": "Polymer Science Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20615"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "psychology",
+      "title": "Psychology",
+      "college": "College of Education and Human Sciences",
+      "school": "School of Psychology",
+      "specializations": [
+        "Psychology BS",
+        "Psychology Minor"
+      ],
+      "campuses": [
+        "Gulf Park",
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/psychology.php",
+      "catalog_links": [
+        {
+          "label": "Psychology BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20836"
+        },
+        {
+          "label": "Psychology Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20541"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "public-health",
+      "title": "Public Health",
+      "college": "College of Nursing and Health Professions",
+      "school": "School of Health Professions",
+      "specializations": [
+        "Public Health BS",
+        "Public Health Minor",
+        "Health Policy and Administration Minor",
+        "Health Coaching for Health Professionals Minor"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/public-health.php",
+      "catalog_links": [
+        {
+          "label": "Public Health BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20840"
+        },
+        {
+          "label": "Public Health Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20549"
+        },
+        {
+          "label": "Health Policy and Administration Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20550"
+        },
+        {
+          "label": "Health Coaching for Health Professionals Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20934"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "recreational-therapy",
+      "title": "Recreational Therapy",
+      "college": "College of Nursing and Health Professions",
+      "school": "School of Health Professions",
+      "specializations": [
+        "Recreational Therapy BS",
+        "Recreational Therapy Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/recreational-therapy.php",
+      "catalog_links": [
+        {
+          "label": "Recreational Therapy BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20842"
+        },
+        {
+          "label": "Recreational Therapy Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20905"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "secondary-education",
+      "title": "Secondary Education",
+      "college": "College of Education and Human Sciences",
+      "school": "School of Education",
+      "specializations": [
+        "Secondary Education BS"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Hybrid Gulf Park"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/secondary-education.php",
+      "catalog_links": [
+        {
+          "label": "Secondary Education BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20949"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "social-work",
+      "title": "Social Work",
+      "college": "College of Education and Human Sciences",
+      "school": "School of Social Work",
+      "specializations": [
+        "Social Work BSW",
+        "Child Advocacy Studies (CAST) Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/social-work.php",
+      "catalog_links": [
+        {
+          "label": "Social Work BSW",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20837"
+        },
+        {
+          "label": "Child Advocacy Studies (CAST) Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20745"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "sociology",
+      "title": "Sociology",
+      "college": "College of Arts and Sciences",
+      "school": "School of Social Science and Global Studies",
+      "specializations": [
+        "Sociology BS",
+        "Sociology Minor",
+        "Social Science and Medicine Minor",
+        "Diversity, Equity, and Inclusion Certificate"
+      ],
+      "campuses": [
+        "Hattiesburg",
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/sociology.php",
+      "catalog_links": [
+        {
+          "label": "Sociology BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20854"
+        },
+        {
+          "label": "Sociology Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20452"
+        },
+        {
+          "label": "Social Science and Medicine Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20898"
+        },
+        {
+          "label": "Diversity, Equity, and Inclusion Certificate",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20889"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "speech-pathology-audiology",
+      "title": "Speech Pathology and Audiology",
+      "college": "College of Nursing and Health Professions",
+      "school": "School of Speech and Hearing Sciences",
+      "specializations": [
+        "Speech Pathology and Audiology BA",
+        "Speech Pathology and Audiology Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/speech-pathology-audiology.php",
+      "catalog_links": [
+        {
+          "label": "Speech Pathology and Audiology BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20774"
+        },
+        {
+          "label": "Speech Pathology and Audiology Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20555"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "sport-management",
+      "title": "Sport Management",
+      "college": "College of Business and Economic Development",
+      "school": "School of Marketing",
+      "specializations": [
+        "Sport Management BSBA",
+        "Sport Management Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/sport-management.php",
+      "catalog_links": [
+        {
+          "label": "Sport Management BSBA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20779"
+        },
+        {
+          "label": "Sport Management Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20554"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "sports-medicine",
+      "title": "Sports Medicine",
+      "college": "College of Nursing and Health Professions",
+      "school": "School of Health Professions",
+      "specializations": [
+        "Sports Medicine BS"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/sports-medicine.php",
+      "catalog_links": [
+        {
+          "label": "Sports Medicine BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20921"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "strategic-communication",
+      "title": "Strategic Communication",
+      "college": "College of Arts and Sciences",
+      "school": "School of Media and Communication",
+      "specializations": [
+        "Strategic Communication - Digital Advertising BA",
+        "Strategic Communication - Digital Media Sales BA",
+        "Strategic Communication - Organizational Communication BA",
+        "Stategic Communication - Public Relations BA",
+        "Strategic Communication Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/strategic-communication.php",
+      "catalog_links": [
+        {
+          "label": "Strategic Communication - Digital Advertising BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20937"
+        },
+        {
+          "label": "Strategic Communication - Digital Media Sales BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20883"
+        },
+        {
+          "label": "Strategic Communication - Organizational Communication BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20940"
+        },
+        {
+          "label": "Stategic Communication - Public Relations BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20943"
+        },
+        {
+          "label": "Strategic Communication Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20469"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "sustainability-sciences",
+      "title": "Sustainability Sciences",
+      "college": "College of Arts and Sciences",
+      "school": "School of Biological, Environmental and Earth Sciences",
+      "specializations": [
+        "Sustainability Sciences BS",
+        "Sustainability Minor"
+      ],
+      "campuses": [
+        "Online 100%"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/sustainability-sciences.php",
+      "catalog_links": [
+        {
+          "label": "Sustainability Sciences BS",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20909"
+        },
+        {
+          "label": "Sustainability Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20915"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "theatre",
+      "title": "Theatre",
+      "college": "College of Arts and Sciences",
+      "school": "School of Performing and Visual Arts",
+      "specializations": [
+        "Theatre BA",
+        "Theatre BFA",
+        "Theatre Minor"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/theatre.php",
+      "catalog_links": [
+        {
+          "label": "Theatre BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20827"
+        },
+        {
+          "label": "Theatre BFA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20828"
+        },
+        {
+          "label": "Theatre Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20483"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    },
+    {
+      "slug": "world-languages",
+      "title": "World Languages",
+      "college": "College of Arts and Sciences",
+      "school": "School of Social Science and Global Studies",
+      "specializations": [
+        "World Languages BA",
+        "World Languages (French) Minor",
+        "World Languages (German) Minor",
+        "World Languages (Spanish) Minor",
+        "Functional Fluency in World Languages Undergraduate Badge",
+        "Global Seal of Biliteracy Professional Fluency Undergraduate Badge",
+        "Working Fluency in World Languages Undergraduate Badge"
+      ],
+      "campuses": [
+        "Hattiesburg"
+      ],
+      "page_url": "https://www.usm.edu/undergraduate-programs/world-languages.php",
+      "catalog_links": [
+        {
+          "label": "World Languages BA",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20847"
+        },
+        {
+          "label": "World Languages (French) Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20458"
+        },
+        {
+          "label": "World Languages (German) Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20459"
+        },
+        {
+          "label": "World Languages (Spanish) Minor",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20461"
+        },
+        {
+          "label": "Functional Fluency in World Languages Undergraduate Badge",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20953"
+        },
+        {
+          "label": "Global Seal of Biliteracy Professional Fluency Undergraduate Badge",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20954"
+        },
+        {
+          "label": "Working Fluency in World Languages Undergraduate Badge",
+          "url": "https://catalog.usm.edu/preview_program.php?catoid=43\u0026poid=20955"
+        }
+      ],
+      "fetched_at": "2026-10-29"
+    }
+  ],
+  "gec": [
+    {
+      "code": "01",
+      "name": "Written Communication",
+      "hours": 6,
+      "courses": [
+        "ENG 101",
+        "ENG 102"
+      ]
+    },
+    {
+      "code": "02",
+      "name": "Natural Science",
+      "hours": 6,
+      "courses": [
+        "AST 111",
+        "AST 112",
+        "BSC 103",
+        "BSC 103L",
+        "BSC 104",
+        "BSC 104L",
+        "BSC 107",
+        "BSC 107L",
+        "BSC 110",
+        "BSC 110L",
+        "BSC 111",
+        "BSC 111L",
+        "BSC 250",
+        "BSC 250L",
+        "BSC 251",
+        "BSC 251L",
+        "CHE 104",
+        "CHE 106",
+        "CHE 106L",
+        "GHY 104",
+        "GHY 105",
+        "GLY 101",
+        "GLY 101L",
+        "GLY 103",
+        "GLY 103L",
+        "GLY 110",
+        "MAR 151",
+        "PHY 103",
+        "PHY 111",
+        "PHY 111L",
+        "PHY 112",
+        "PHY 112L",
+        "PHY 201",
+        "PHY 201L",
+        "PHY 202",
+        "PHY 202L",
+        "PSE 190"
+      ]
+    },
+    {
+      "code": "03",
+      "name": "Humanities",
+      "hours": 6,
+      "courses": [
+        "ENG 203",
+        "ENG 205",
+        "HIS 101",
+        "HIS 102",
+        "HIS 104",
+        "PHI 151",
+        "PHI 171",
+        "REL 131"
+      ]
+    },
+    {
+      "code": "04",
+      "name": "Aesthetic Values",
+      "hours": 3,
+      "courses": [
+        "ART 130",
+        "DAN 130",
+        "MUS 165",
+        "THE 100"
+      ]
+    },
+    {
+      "code": "05",
+      "name": "Social and Behavioral Sciences",
+      "hours": 6,
+      "courses": [
+        "ANT 101",
+        "ANT 221",
+        "ECO 101",
+        "GHY 101",
+        "HHS 100",
+        "PS 101",
+        "PSY 110",
+        "SOC 101",
+        "WL 110"
+      ]
+    },
+    {
+      "code": "06",
+      "name": "Mathematics",
+      "hours": 3,
+      "courses": [
+        "MAT 100",
+        "MAT 101"
+      ]
+    }
+  ],
+  "gec_source": "https://www.usm.edu/provost/seymours-gec.php"
+}

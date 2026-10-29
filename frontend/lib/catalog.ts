@@ -1,13 +1,18 @@
 import raw from "@/lib/catalog-snapshot.json";
+import planning from "@/lib/tracks-snapshot.json";
+import type { GECCategory, Track } from "@/lib/api/types";
 import type { Catalog, CatalogCourse, CatalogSubject } from "@/lib/courseIndex";
 
 /**
  * Build-time view of the course catalog for the public course pages.
  * Server components only: importing it client-side would ship the whole file.
- * lib/catalog-snapshot.json is a copy of internal/catalog/catalog.json; refresh it
- * with `npm run sync-catalog` after `replica --catalog`.
+ * lib/catalog-snapshot.json is a copy of internal/catalog/catalog.json, and
+ * lib/tracks-snapshot.json of internal/tracks/tracks.json; refresh both with
+ * `npm run sync-catalog` after `replica --catalog` / `replica --tracks`.
  */
 const catalog = raw as Catalog;
+const tracks = (planning as { tracks: Track[] }).tracks;
+const gec = (planning as { gec: GECCategory[] }).gec;
 
 export const codeOf = (c: { subject: string; catalog_nbr: string }) => `${c.subject} ${c.catalog_nbr}`;
 export const subjectSlug = (subject: string) => subject.toLowerCase();
@@ -76,4 +81,23 @@ export function nearby(c: CatalogCourse, count = 6): CatalogCourse[] {
   const i = list.findIndex((x) => x.catalog_nbr === c.catalog_nbr);
   const start = Math.max(0, Math.min(i - Math.floor(count / 2), list.length - count - 1));
   return list.slice(start, start + count + 1).filter((x) => x !== c).slice(0, count);
+}
+
+/** Pre-professional tracks that list this course, with the line naming it. */
+export function tracksFor(c: { subject: string; catalog_nbr: string }): { slug: string; name: string; line: string }[] {
+  const code = codeOf(c);
+  const out: { slug: string; name: string; line: string }[] = [];
+  for (const t of tracks) {
+    const line = t.requirements.find(function names(r): boolean {
+      return !!r.options?.some((o) => o.includes(code)) || !!r.children?.some(names);
+    });
+    if (line) out.push({ slug: t.slug, name: t.name, line: line.label || line.text });
+  }
+  return out;
+}
+
+/** GEC areas this course counts toward. */
+export function gecFor(c: { subject: string; catalog_nbr: string }): GECCategory[] {
+  const code = codeOf(c);
+  return gec.filter((g) => g.courses.includes(code));
 }

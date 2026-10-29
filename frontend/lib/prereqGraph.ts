@@ -68,6 +68,11 @@ export class PrereqGraph {
     return this.courses.has(code);
   }
 
+  /** Every course in the catalog. */
+  all(): PrereqCourse[] {
+    return [...this.courses.values()];
+  }
+
   /** Courses that have any prerequisite data, for pickers and tests. */
   withPrereqs(): string[] {
     return [...this.courses.values()].filter((c) => c.prereqs?.length).map(codeOf);
@@ -82,6 +87,11 @@ export class PrereqGraph {
 
   groups(code: string): string[][] {
     return this.courses.get(code)?.prereqs ?? [];
+  }
+
+  /** Courses to take alongside `code`, as AND-of-OR groups. */
+  coreqs(code: string): string[][] {
+    return this.courses.get(code)?.coreqs ?? [];
   }
 
   /** Courses whose requirements mention `code` directly. */

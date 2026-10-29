@@ -4,12 +4,15 @@ import assert from "node:assert/strict";
 import type { ClassSection } from "./api/types";
 import {
   buildSchedules,
+  campusHops,
   courseKey,
   formatClock,
+  missingCompanions,
   parseClock,
   sectionClashes,
   sectionCredits,
   sectionSlots,
+  toICS,
   type Commitment,
   type Favorites,
   type PlannedCourse,
@@ -209,4 +212,52 @@ test("sectionClashes names the class or commitment in the way", () => {
     sectionClashes(other, [mat, other], [work]).map((c) => c.label),
     ["Work"],
   );
+});
+
+test("campusHops flags a tight Hattiesburg to Gulf Park dash", () => {
+  const hbg = section("BSC", "110", "MW", "9:00 AM", "9:50 AM", { campus: "HBG" });
+  const gp = section("ENG", "101", "M", "10:00 AM", "10:50 AM", { campus: "USMGC" });
+  const later = section("ENG", "101", "M", "1:00 PM", "1:50 PM", { campus: "USMGC" });
+  const online = section("PSY", "110", "M", "10:00 AM", "10:50 AM", { campus: "ONLNE" });
+  assert.deepEqual(campusHops([hbg, gp]), [{ day: "M", from: "BSC 110", to: "ENG 101", gap: 10 }]);
+  assert.deepEqual(campusHops([hbg, later]), []);
+  assert.deepEqual(campusHops([hbg, online]), []);
+});
+
+test("missingCompanions suggests coreqs and labs not in the plan", () => {
+  const planned = (code: string): PlannedCourse => {
+    const [subject, catalog_nbr] = code.split(" ");
+    return { key: code, subject, catalog_nbr, descr: "", sections: [], dropped: false };
+  };
+  const coreqs: Record<string, string[][]> = { "CHE 106": [["CHE 106L"]], "PHY 111": [["PHY 111L", "PHY 111H"]] };
+  const exists = new Set(["BSC 110L", "CHE 106L", "PHY 111L"]);
+  const got = missingCompanions(
+    [planned("BSC 110"), planned("CHE 106"), planned("CHE 106L"), planned("PHY 111"), planned("MAT 167")],
+    (c) => coreqs[c] ?? [],
+    (c) => exists.has(c),
+  );
+  assert.deepEqual(got, [
+    { for: "BSC 110", options: ["BSC 110L"] },
+    { for: "PHY 111", options: ["PHY 111L", "PHY 111H"] },
+  ]);
+});
+
+test("toICS repeats weekly from the first class day through the last", () => {
+  const evening = section("MAT", "167", "", "", "", {
+    class_nbr: 2804,
+    class_section: "001",
+    descr: "Calculus I",
+    times: [{ days: "TR", start_time: "6:00 PM", end_time: "7:15 PM", room: "LAB 102" }],
+    start_dt: "08/24/2026",
+    end_dt: "12/10/2026",
+  });
+  const undated = section("PSY", "110", "MW", "9:00 AM", "9:50 AM");
+  const ics = toICS([evening, undated], "20261029T000000Z");
+  // 08/24/2026 is a Monday; the first Tue/Thu meeting is 08/25
+  assert.match(ics, /DTSTART;TZID=America\/Chicago:20260825T180000/);
+  assert.match(ics, /DTEND;TZID=America\/Chicago:20260825T191500/);
+  assert.match(ics, /RRULE:FREQ=WEEKLY;BYDAY=TU,TH;UNTIL=20261211T055959Z/);
+  assert.match(ics, /LOCATION:LAB 102/);
+  assert.equal(ics.match(/BEGIN:VEVENT/g)?.length, 1, "a section without USM dates is skipped");
+  assert.ok(ics.includes("\r\n"));
 });

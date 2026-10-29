@@ -328,6 +328,9 @@ export function scoreSchedule(picks: ClassSection[], fav: Favorites): Omit<Sched
     }
   }
 
+  // a dash between Hattiesburg and Gulf Park is a real cost; sink those
+  score -= campusHops(picks).length * 30;
+
   const credits = picks.reduce((sum, s) => sum + (sectionCredits(s) ?? ASSUMED_CREDITS), 0);
   return { score: Math.round(score * 10) / 10, reasons, credits, fullCount };
 }
@@ -453,4 +456,165 @@ export function clashGroups(picks: ClassSection[]): string[][] {
   const groups = new Map<string, string[]>();
   for (const k of tangled) groups.set(find(k), [...(groups.get(find(k)) ?? []), k]);
   return [...groups.values()];
+}
+
+/* ---------- campus travel ---------- */
+
+/** Hattiesburg and Gulf Park are about 70 miles apart. */
+export const CAMPUS_TRAVEL_MIN = 90;
+
+export type CampusHop = {
+  day: Day;
+  from: string;
+  to: string;
+  /** minutes between the end of one class and the start of the next */
+  gap: number;
+};
+
+/**
+ * Back-to-back in-person classes on different campuses with less than
+ * CAMPUS_TRAVEL_MIN minutes to get between them.
+ */
+export function campusHops(picks: ClassSection[]): CampusHop[] {
+  const meetings = picks
+    .filter((s) => s.campus && !isOnline(s))
+    .flatMap((s) => sectionSlots(s).map((slot) => ({ ...slot, campus: s.campus!, key: courseKey(s) })));
+  const hops: CampusHop[] = [];
+  for (const day of new Set(meetings.map((m) => m.day))) {
+    const sorted = meetings.filter((m) => m.day === day).sort((a, b) => a.start - b.start);
+    for (let i = 1; i < sorted.length; i++) {
+      const [a, b] = [sorted[i - 1], sorted[i]];
+      const gap = b.start - a.end;
+      if (a.campus !== b.campus && gap < CAMPUS_TRAVEL_MIN) hops.push({ day, from: a.key, to: b.key, gap });
+    }
+  }
+  return hops;
+}
+
+/* ---------- labs and corequisites ---------- */
+
+export type Companion = {
+  /** the planned course that needs it */
+  for: string;
+  /** any one of these satisfies it */
+  options: string[];
+};
+
+/**
+ * Corequisites (and "BSC 110L"-style labs) of planned courses that aren't in
+ * the plan yet. coreqsOf returns USM's AND-of-OR groups; hasCourse says
+ * whether a code exists, so "MAT 167" doesn't suggest a nonexistent lab.
+ */
+export function missingCompanions(
+  courses: PlannedCourse[],
+  coreqsOf: (code: string) => string[][],
+  hasCourse: (code: string) => boolean,
+): Companion[] {
+  const active = courses.filter((c) => !c.dropped);
+  const planned = new Set(active.map((c) => `${c.subject} ${c.catalog_nbr}`));
+  const out: Companion[] = [];
+  const seen = new Set<string>();
+  for (const c of active) {
+    const code = `${c.subject} ${c.catalog_nbr}`;
+    const groups = [...coreqsOf(code)];
+    const lab = `${code}L`;
+    if (!/L$/.test(c.catalog_nbr) && hasCourse(lab) && !groups.some((g) => g.includes(lab))) groups.push([lab]);
+    for (const g of groups) {
+      if (g.some((x) => planned.has(x))) continue;
+      const k = g.join("|");
+      if (seen.has(k)) continue;
+      seen.add(k);
+      out.push({ for: code, options: g });
+    }
+  }
+  return out;
+}
+
+/* ---------- calendar export ---------- */
+
+const ICS_DAY: Record<Day, string> = { M: "MO", T: "TU", W: "WE", R: "TH", F: "FR", S: "SA", U: "SU" };
+const JS_DAY: Record<Day, number> = { U: 0, M: 1, T: 2, W: 3, R: 4, F: 5, S: 6 };
+
+/** "08/24/2026" -> [2026, 8, 24] */
+function parseUsmDate(raw?: string): [number, number, number] | null {
+  const m = raw?.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  return m ? [Number(m[3]), Number(m[1]), Number(m[2])] : null;
+}
+
+const pad = (n: number) => String(n).padStart(2, "0");
+const icsDate = (y: number, mo: number, d: number) => `${y}${pad(mo)}${pad(d)}`;
+const icsTime = (min: number) => `${pad(Math.floor(min / 60))}${pad(min % 60)}00`;
+
+function icsEscape(s: string): string {
+  return s.replace(/\\/g, "\\\\").replace(/;/g, "\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
+}
+
+// US Central with the post-2007 DST rules, so calendars place classes in
+// Hattiesburg time wherever the student opens the file.
+const VTIMEZONE = [
+  "BEGIN:VTIMEZONE",
+  "TZID:America/Chicago",
+  "BEGIN:DAYLIGHT",
+  "TZOFFSETFROM:-0600",
+  "TZOFFSETTO:-0500",
+  "TZNAME:CDT",
+  "DTSTART:19700308T020000",
+  "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU",
+  "END:DAYLIGHT",
+  "BEGIN:STANDARD",
+  "TZOFFSETFROM:-0500",
+  "TZOFFSETTO:-0600",
+  "TZNAME:CST",
+  "DTSTART:19701101T020000",
+  "RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU",
+  "END:STANDARD",
+  "END:VTIMEZONE",
+];
+
+/** Sections that can go on a calendar: they meet, and USM published dates. */
+export function exportable(s: ClassSection): boolean {
+  return sectionSlots(s).length > 0 && !!parseUsmDate(s.start_dt) && !!parseUsmDate(s.end_dt);
+}
+
+/**
+ * A weekly-repeating iCalendar event per meeting pattern of each section,
+ * from its first to last class day. `stamp` is the DTSTAMP (UTC, "...Z").
+ */
+export function toICS(picks: ClassSection[], stamp: string): string {
+  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Ping My Nest//Schedule//EN", "CALSCALE:GREGORIAN", ...VTIMEZONE];
+  for (const s of picks.filter(exportable)) {
+    const [sy, sm, sd] = parseUsmDate(s.start_dt)!;
+    const [ey, em, ed] = parseUsmDate(s.end_dt)!;
+    const meetings = s.times?.length ? s.times : [{ days: s.days ?? "", start_time: s.start_time ?? "", end_time: s.end_time ?? "" }];
+    meetings.forEach((m, i) => {
+      const start = parseClock(m.start_time);
+      const end = parseClock(m.end_time);
+      const days = parseDays(m.days);
+      if (start === null || end === null || !days.length) return;
+      // the first class day on or after start_dt that this meeting falls on
+      const first = new Date(Date.UTC(sy, sm - 1, sd));
+      while (!days.some((d) => JS_DAY[d] === first.getUTCDay())) first.setUTCDate(first.getUTCDate() + 1);
+      const day = icsDate(first.getUTCFullYear(), first.getUTCMonth() + 1, first.getUTCDate());
+      const room = "room" in m && m.room ? m.room : "";
+      // UNTIL is UTC: 23:59:59 Central on the last class day is 05:59:59Z the
+      // next morning (CST, UTC-6), so a night class that day still counts
+      const last = new Date(Date.UTC(ey, em - 1, ed + 1));
+      const until = `${icsDate(last.getUTCFullYear(), last.getUTCMonth() + 1, last.getUTCDate())}T055959Z`;
+      lines.push(
+        "BEGIN:VEVENT",
+        `UID:${s.strm}-${s.class_nbr}-${i}@pingmynest`,
+        `DTSTAMP:${stamp}`,
+        `SUMMARY:${icsEscape(`${courseKey(s)} §${s.class_section}`)}`,
+        `DESCRIPTION:${icsEscape([s.descr, instructorName(s), `CRN ${s.class_nbr}`].filter(Boolean).join("\n"))}`,
+        ...(room ? [`LOCATION:${icsEscape(room)}`] : []),
+        `DTSTART;TZID=America/Chicago:${day}T${icsTime(start)}`,
+        `DTEND;TZID=America/Chicago:${day}T${icsTime(end)}`,
+        `RRULE:FREQ=WEEKLY;BYDAY=${days.map((d) => ICS_DAY[d]).join(",")};UNTIL=${until}`,
+        "END:VEVENT",
+      );
+    });
+  }
+  lines.push("END:VCALENDAR");
+  // RFC 5545: CRLF line endings
+  return lines.join("\r\n") + "\r\n";
 }

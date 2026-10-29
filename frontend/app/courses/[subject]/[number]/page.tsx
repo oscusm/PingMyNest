@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/courses/Breadcrumbs";
+import { CourseInsights } from "@/components/courses/CourseInsights";
 import { Footer } from "@/components/landing/Footer";
 import { Navbar } from "@/components/landing/Navbar";
 import {
@@ -10,9 +11,11 @@ import {
   courseBySlug,
   coursePath,
   courseSlug,
+  gecFor,
   nearby,
   subjectName,
   subjectSlug,
+  tracksFor,
   unlockedBy,
 } from "@/lib/catalog";
 import { SCHOOL, SITE_NAME, SITE_URL, jsonLd, pageMeta } from "@/lib/site";
@@ -60,6 +63,8 @@ export default async function CoursePage({ params }: Props) {
   const subject = subjectName(c.subject);
   const searchHref = `/search?q=${encodeURIComponent(code)}`;
   const leadsTo = unlockedBy(c);
+  const neededBy = tracksFor(c);
+  const gecAreas = gecFor(c);
   const more = nearby(c);
 
   const courseJsonLd = {
@@ -168,6 +173,37 @@ export default async function CoursePage({ params }: Props) {
               </ul>
             </section>
           ) : null}
+
+          {neededBy.length || gecAreas.length ? (
+            <section className="mt-12" aria-labelledby="counts">
+              <h2 id="counts" className="text-2xl font-bold text-ink">
+                What {code} counts for
+              </h2>
+              <ul className="mt-4 space-y-2 text-ink-2">
+                {gecAreas.map((g) => (
+                  <li key={g.code} className="rounded-md border border-line bg-surface px-4 py-3">
+                    <Link href="/gec" className="font-semibold text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent">
+                      GEC {g.code}: {g.name}
+                    </Link>{" "}
+                    in USM&apos;s General Education Curriculum
+                  </li>
+                ))}
+                {neededBy.map((t) => (
+                  <li key={t.slug} className="rounded-md border border-line bg-surface px-4 py-3">
+                    <Link
+                      href={`/tracks?track=${t.slug}`}
+                      className="font-semibold text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent"
+                    >
+                      {t.name}
+                    </Link>
+                    <span className="text-muted">: {t.line}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          <CourseInsights subject={c.subject} catalogNbr={c.catalog_nbr} />
 
           <section className="mt-12" aria-labelledby="alerts">
             <h2 id="alerts" className="text-2xl font-bold text-ink">

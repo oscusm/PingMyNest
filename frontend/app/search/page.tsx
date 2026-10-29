@@ -13,8 +13,9 @@ import { scheduleActions, useSchedulePlan } from "@/hooks/useSchedulePlan";
 import { useThrottledCallback } from "@/hooks/useThrottledCallback";
 import { usePingApi } from "@/hooks/usePingApi";
 import { cn } from "@/lib/cn";
-import { courseKey } from "@/lib/schedule";
+import { courseKey, parseClock } from "@/lib/schedule";
 import {
+  api,
   formatDays,
   formatTimeRange,
   instructorLabel,
@@ -113,6 +114,9 @@ export default function SearchPage() {
   const [onlyOpen, setOnlyOpen] = useState(false);
   // campus filter of the search that produced `classes`, so the builder can rerun it
   const [resultCampus, setResultCampus] = useState<string | undefined>();
+  // the whole search behind `classes`, for "ping any section" with its filters
+  const [resultParams, setResultParams] = useState<SearchParams | null>(null);
+  const [pingingCourse, setPingingCourse] = useState(false);
   const plan = useSchedulePlan();
 
   const runSearch = useCallback(
@@ -143,6 +147,7 @@ export default function SearchPage() {
         const list = res.classes ?? [];
         setClasses(list);
         setResultCampus(payload.campus);
+        setResultParams(payload);
         setPhase(list.length ? "ready" : "empty");
       } catch {
         if (id !== reqId.current) return;
@@ -234,6 +239,36 @@ export default function SearchPage() {
       toast(watchErrorMessage(err));
     } finally {
       setWatching(null);
+    }
+  };
+
+  // "any section of BSC 110": the search's campus, days, start time and
+  // professor become the watch's filters
+  const onPingCourse = async () => {
+    const p = resultParams;
+    if (!p?.catalog_nbr) return;
+    if (!user) {
+      router.push("/signup");
+      return;
+    }
+    setPingingCourse(true);
+    try {
+      await api.courseWatch({
+        subject: p.subject,
+        catalog_nbr: p.catalog_nbr,
+        campus: p.campus,
+        days: p.days?.replaceAll(",", ""),
+        start_after: parseClock(p.start_time_ge) ?? undefined,
+        instructor: p.instructor_name,
+      });
+      toast.success(`Watching every section of ${p.subject} ${p.catalog_nbr}`, {
+        description: "We'll email you when any section matching this search has a seat.",
+        action: { label: "My watches", onClick: () => router.push("/watches") },
+      });
+    } catch (err) {
+      toast(watchErrorMessage(err));
+    } finally {
+      setPingingCourse(false);
     }
   };
 
@@ -510,6 +545,18 @@ export default function SearchPage() {
                         : "Results"}
               </h2>
               <div className="flex items-center gap-2">
+                {phase === "ready" && resultParams?.catalog_nbr ? (
+                  <button
+                    type="button"
+                    onClick={() => void onPingCourse()}
+                    disabled={pingingCourse}
+                    className="btn btn-secondary btn-sm"
+                    title="Get an alert when any section matching this search opens"
+                  >
+                    <Bell className="h-4 w-4" aria-hidden />
+                    {pingingCourse ? "Saving…" : "Ping any section"}
+                  </button>
+                ) : null}
                 {phase === "ready" ? (
                   <button
                     type="button"
@@ -691,6 +738,14 @@ function SectionRow({
           </h3>
           <span className="font-mono text-xs text-muted">§{c.class_section}</span>
           <SeatBadge status={status} />
+          {/^GEC\d/.test(c.rqmnt_designtn ?? "") ? (
+            <span className="text-[11px] font-bold uppercase tracking-wider text-muted" title="Counts toward USM's General Education Curriculum">
+              {c.rqmnt_designtn!.replace(/^GEC(\d)$/, "GEC 0$1")}
+            </span>
+          ) : null}
+          {c.class_stat === "X" ? (
+            <span className="text-[11px] font-bold uppercase tracking-wider text-full">Cancelled</span>
+          ) : null}
         </div>
         <p className="mt-1 truncate text-sm text-ink-2">{c.descr}</p>
         <p className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted">

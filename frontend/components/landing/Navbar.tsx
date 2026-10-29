@@ -22,6 +22,7 @@ const appLinks = [
   { href: "/search", label: "Search" },
   { href: "/schedule", label: "Schedule" },
   { href: "/prereqs", label: "Prereq map" },
+  { href: "/planner", label: "Planner" },
   { href: "/watches", label: "My watches" },
 ];
 
@@ -32,7 +33,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const onLanding = pathname === "/";
   const signedInLinks = user?.admin ? [...appLinks, { href: "/admin", label: "Admin" }] : appLinks;
-  const links = onLanding ? sectionLinks : user ? signedInLinks : appLinks.slice(0, 3);
+  const links = onLanding ? sectionLinks : user ? signedInLinks : appLinks.filter((l) => l.href !== "/watches");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);

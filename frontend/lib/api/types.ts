@@ -44,7 +44,14 @@ export type ClassSection = {
   /** "LEC", "LAB", ... */
   component?: string;
   /** Every scheduled meeting; days/start_time/end_time only hold the first. */
-  times?: { days: string; start_time: string; end_time: string }[];
+  times?: { days: string; start_time: string; end_time: string; room?: string }[];
+  /** "A" active, "X" cancelled, "S" enrollment stopped, "T" tentative */
+  class_stat?: string;
+  /** first and last class day, "08/24/2026" */
+  start_dt?: string;
+  end_dt?: string;
+  /** GEC area the section counts for, e.g. "GEC6" */
+  rqmnt_designtn?: string;
 };
 
 export type SearchResponse = {
@@ -78,6 +85,8 @@ export type WatchItem = {
   id: number;
   class_nbr: number;
   active: boolean;
+  /** instructor / time / cancellation alerts, which outlast the seat alert */
+  notify_changes: boolean;
   subject: string;
   catalog_nbr: string;
   class_section: string;
@@ -86,6 +95,114 @@ export type WatchItem = {
 };
 
 export type SeatStatus = "OPEN" | "FULL" | "1 LEFT";
+
+/* ---------- alerts beyond one section ---------- */
+
+/** "Any section of BSC 110", optionally narrowed. */
+export type CourseWatchRequest = {
+  subject: string;
+  catalog_nbr: string;
+  campus?: string;
+  /** allowed meeting days, "MWF" */
+  days?: string;
+  /** minutes after midnight */
+  start_after?: number;
+  start_before?: number;
+  instructor?: string;
+};
+
+export type CourseWatchItem = CourseWatchRequest & {
+  id: number;
+  active: boolean;
+  notified_at?: string;
+  /** sections of the course we know of, and how many have seats */
+  sections: number;
+  open_sections: number;
+};
+
+export type SectionChangeField = "instructor" | "meetings" | "status" | "removed";
+
+export type SectionChange = {
+  class_nbr: number;
+  subject: string;
+  catalog_nbr: string;
+  class_section: string;
+  field: SectionChangeField;
+  old: string;
+  new: string;
+  at: string;
+};
+
+export type AlertSettings = {
+  email: string;
+  discord_enabled: boolean;
+  /** masked: the token is never sent back */
+  discord_webhook: string;
+};
+
+/* ---------- planning: tracks, programs, GEC, course insights ---------- */
+
+/**
+ * One line of a track's course list. Met when every course of any one
+ * option is done, or when `choose` of the children are met. With neither,
+ * it is free text the student ticks off.
+ */
+export type TrackRequirement = {
+  label?: string;
+  text: string;
+  options?: string[][];
+  choose?: number;
+  children?: TrackRequirement[];
+  hours?: number;
+  /** also satisfied by something unlisted ("or other statistics course") */
+  open?: boolean;
+  optional?: boolean;
+};
+
+export type Track = {
+  slug: string;
+  name: string;
+  summary?: string;
+  note?: string;
+  requirements: TrackRequirement[];
+  milestones: string[];
+  footnotes: string[];
+  /** majors the track's page suggests (DegreeProgram.slug) */
+  related_programs?: string[];
+  source_url: string;
+  fetched_at?: string;
+};
+
+export type DegreeProgram = {
+  slug: string;
+  title: string;
+  college?: string;
+  school?: string;
+  specializations: string[];
+  campuses: string[];
+  page_url: string;
+  /** the Bulletin entry (degree requirements) for each degree, minor, badge */
+  catalog_links?: { label: string; url: string }[];
+  fetched_at?: string;
+};
+
+export type GECCategory = {
+  code: string;
+  name: string;
+  hours?: number;
+  courses: string[];
+};
+
+export type CourseInsights = {
+  offerings: { term: string; sections: number }[];
+  trend_days: number;
+  /** full -> open flips seen in the last trend_days */
+  openings: number;
+  sections_seen: number;
+  last_opened_at?: string;
+  tracked_since?: string;
+  also_watched: { subject: string; catalog_nbr: string; students: number }[];
+};
 
 /* ---------- /pulse: what the worker and API actually did ---------- */
 
