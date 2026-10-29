@@ -224,6 +224,52 @@ func (q *Queries) AdminUserWatches(ctx context.Context, userID pgtype.Int4) ([]A
 	return items, nil
 }
 
+const alsoWatched = `-- name: AlsoWatched :many
+SELECT b.subject, b.catalog_nbr, count(DISTINCT b.user_id)::int AS students
+FROM course_interest a
+JOIN course_interest b ON b.user_id = a.user_id
+WHERE a.subject = $1 AND a.catalog_nbr = $2
+  AND NOT (b.subject = a.subject AND b.catalog_nbr = a.catalog_nbr)
+GROUP BY b.subject, b.catalog_nbr
+HAVING count(DISTINCT b.user_id) >= $3::int
+ORDER BY students DESC, b.subject, b.catalog_nbr
+LIMIT 8
+`
+
+type AlsoWatchedParams struct {
+	Subject     string
+	CatalogNbr  string
+	MinStudents int32
+}
+
+type AlsoWatchedRow struct {
+	Subject    string
+	CatalogNbr string
+	Students   int32
+}
+
+// Courses that students watching this course also watch. Only pairs shared
+// by at least min_students students, so nobody's watch list is exposed.
+func (q *Queries) AlsoWatched(ctx context.Context, arg AlsoWatchedParams) ([]AlsoWatchedRow, error) {
+	rows, err := q.db.Query(ctx, alsoWatched, arg.Subject, arg.CatalogNbr, arg.MinStudents)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []AlsoWatchedRow
+	for rows.Next() {
+		var i AlsoWatchedRow
+		if err := rows.Scan(&i.Subject, &i.CatalogNbr, &i.Students); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const bumpTokenVersion = `-- name: BumpTokenVersion :one
 UPDATE users SET token_version = token_version + 1
 WHERE id = $1
@@ -235,6 +281,100 @@ func (q *Queries) BumpTokenVersion(ctx context.Context, id int32) (int32, error)
 	var token_version int32
 	err := row.Scan(&token_version)
 	return token_version, err
+}
+
+const courseOfferings = `-- name: CourseOfferings :many
+SELECT term, count(*)::int AS sections,
+       count(DISTINCT campus)::int AS campuses
+FROM sections
+WHERE subject = $1 AND catalog_nbr = $2
+GROUP BY term
+ORDER BY term
+`
+
+type CourseOfferingsParams struct {
+	Subject    string
+	CatalogNbr string
+}
+
+type CourseOfferingsRow struct {
+	Term     string
+	Sections int32
+	Campuses int32
+}
+
+// How many sections of a course each term we've seen, oldest first.
+func (q *Queries) CourseOfferings(ctx context.Context, arg CourseOfferingsParams) ([]CourseOfferingsRow, error) {
+	rows, err := q.db.Query(ctx, courseOfferings, arg.Subject, arg.CatalogNbr)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []CourseOfferingsRow
+	for rows.Next() {
+		var i CourseOfferingsRow
+		if err := rows.Scan(&i.Term, &i.Sections, &i.Campuses); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const createCourseWatch = `-- name: CreateCourseWatch :one
+INSERT INTO course_watches (user_id, subject, catalog_nbr, campus, days, start_after, start_before, instructor)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+ON CONFLICT (user_id, subject, catalog_nbr) DO UPDATE SET
+    campus = EXCLUDED.campus,
+    days = EXCLUDED.days,
+    start_after = EXCLUDED.start_after,
+    start_before = EXCLUDED.start_before,
+    instructor = EXCLUDED.instructor,
+    active = true
+RETURNING id, user_id, subject, catalog_nbr, campus, days, start_after, start_before, instructor, active, notified_at, created_at
+`
+
+type CreateCourseWatchParams struct {
+	UserID      int32
+	Subject     string
+	CatalogNbr  string
+	Campus      pgtype.Text
+	Days        pgtype.Text
+	StartAfter  pgtype.Int4
+	StartBefore pgtype.Int4
+	Instructor  pgtype.Text
+}
+
+func (q *Queries) CreateCourseWatch(ctx context.Context, arg CreateCourseWatchParams) (CourseWatch, error) {
+	row := q.db.QueryRow(ctx, createCourseWatch,
+		arg.UserID,
+		arg.Subject,
+		arg.CatalogNbr,
+		arg.Campus,
+		arg.Days,
+		arg.StartAfter,
+		arg.StartBefore,
+		arg.Instructor,
+	)
+	var i CourseWatch
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.Subject,
+		&i.CatalogNbr,
+		&i.Campus,
+		&i.Days,
+		&i.StartAfter,
+		&i.StartBefore,
+		&i.Instructor,
+		&i.Active,
+		&i.NotifiedAt,
+		&i.CreatedAt,
+	)
+	return i, err
 }
 
 const createRefreshToken = `-- name: CreateRefreshToken :exec
@@ -260,7 +400,7 @@ func (q *Queries) CreateRefreshToken(ctx context.Context, arg CreateRefreshToken
 }
 
 const createUser = `-- name: CreateUser :one
-INSERT INTO users (email) VALUES ($1) RETURNING id, email, verified, created_at, token_version
+INSERT INTO users (email) VALUES ($1) RETURNING id, email, verified, created_at, token_version, discord_webhook
 `
 
 func (q *Queries) CreateUser(ctx context.Context, email string) (User, error) {
@@ -272,6 +412,7 @@ func (q *Queries) CreateUser(ctx context.Context, email string) (User, error) {
 		&i.Verified,
 		&i.CreatedAt,
 		&i.TokenVersion,
+		&i.DiscordWebhook,
 	)
 	return i, err
 }
@@ -295,7 +436,7 @@ func (q *Queries) CreateVerificationToken(ctx context.Context, arg CreateVerific
 const createWatch = `-- name: CreateWatch :one
 INSERT INTO watches (user_id, class_nbr) VALUES ($1, $2)
 ON CONFLICT (user_id, class_nbr) DO UPDATE SET active = true
-RETURNING id, user_id, class_nbr, active, created_at
+RETURNING id, user_id, class_nbr, active, created_at, notify_changes
 `
 
 type CreateWatchParams struct {
@@ -312,8 +453,18 @@ func (q *Queries) CreateWatch(ctx context.Context, arg CreateWatchParams) (Watch
 		&i.ClassNbr,
 		&i.Active,
 		&i.CreatedAt,
+		&i.NotifyChanges,
 	)
 	return i, err
+}
+
+const deactivateCourseWatch = `-- name: DeactivateCourseWatch :exec
+UPDATE course_watches SET active = false, notified_at = now() WHERE id = $1
+`
+
+func (q *Queries) DeactivateCourseWatch(ctx context.Context, id int32) error {
+	_, err := q.db.Exec(ctx, deactivateCourseWatch, id)
+	return err
 }
 
 const deactivateWatch = `-- name: DeactivateWatch :exec
@@ -331,6 +482,52 @@ type DeactivateWatchParams struct {
 func (q *Queries) DeactivateWatch(ctx context.Context, arg DeactivateWatchParams) error {
 	_, err := q.db.Exec(ctx, deactivateWatch, arg.UserID, arg.ClassNbr)
 	return err
+}
+
+const deleteAllGEC = `-- name: DeleteAllGEC :exec
+DELETE FROM gec_categories
+`
+
+func (q *Queries) DeleteAllGEC(ctx context.Context) error {
+	_, err := q.db.Exec(ctx, deleteAllGEC)
+	return err
+}
+
+const deleteAllPrograms = `-- name: DeleteAllPrograms :exec
+DELETE FROM degree_programs
+`
+
+func (q *Queries) DeleteAllPrograms(ctx context.Context) error {
+	_, err := q.db.Exec(ctx, deleteAllPrograms)
+	return err
+}
+
+const deleteAllTracks = `-- name: DeleteAllTracks :exec
+
+DELETE FROM tracks
+`
+
+// ---------- planning data (tracks, programs, GEC) ----------
+func (q *Queries) DeleteAllTracks(ctx context.Context) error {
+	_, err := q.db.Exec(ctx, deleteAllTracks)
+	return err
+}
+
+const deleteCourseWatch = `-- name: DeleteCourseWatch :execrows
+DELETE FROM course_watches WHERE user_id = $1 AND id = $2
+`
+
+type DeleteCourseWatchParams struct {
+	UserID int32
+	ID     int32
+}
+
+func (q *Queries) DeleteCourseWatch(ctx context.Context, arg DeleteCourseWatchParams) (int64, error) {
+	result, err := q.db.Exec(ctx, deleteCourseWatch, arg.UserID, arg.ID)
+	if err != nil {
+		return 0, err
+	}
+	return result.RowsAffected(), nil
 }
 
 const deleteExpiredRefreshTokens = `-- name: DeleteExpiredRefreshTokens :exec
@@ -385,7 +582,8 @@ func (q *Queries) DeleteWatchByUserAndClass(ctx context.Context, arg DeleteWatch
 const getActiveWatchersForSection = `-- name: GetActiveWatchersForSection :many
 SELECT
     u.id,
-    u.email
+    u.email,
+    u.discord_webhook
 FROM watches w
 JOIN users u ON u.id = w.user_id
 WHERE w.class_nbr = $1
@@ -394,8 +592,9 @@ WHERE w.class_nbr = $1
 `
 
 type GetActiveWatchersForSectionRow struct {
-	ID    int32
-	Email string
+	ID             int32
+	Email          string
+	DiscordWebhook pgtype.Text
 }
 
 func (q *Queries) GetActiveWatchersForSection(ctx context.Context, classNbr pgtype.Int4) ([]GetActiveWatchersForSectionRow, error) {
@@ -407,7 +606,105 @@ func (q *Queries) GetActiveWatchersForSection(ctx context.Context, classNbr pgty
 	var items []GetActiveWatchersForSectionRow
 	for rows.Next() {
 		var i GetActiveWatchersForSectionRow
-		if err := rows.Scan(&i.ID, &i.Email); err != nil {
+		if err := rows.Scan(&i.ID, &i.Email, &i.DiscordWebhook); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getChangeWatchersForSection = `-- name: GetChangeWatchersForSection :many
+SELECT u.id, u.email, u.discord_webhook
+FROM watches w
+JOIN users u ON u.id = w.user_id
+WHERE w.class_nbr = $1 AND w.notify_changes AND u.verified = true
+`
+
+type GetChangeWatchersForSectionRow struct {
+	ID             int32
+	Email          string
+	DiscordWebhook pgtype.Text
+}
+
+// Everyone with a watch on the section that still wants change alerts, even
+// if the seat alert already fired.
+func (q *Queries) GetChangeWatchersForSection(ctx context.Context, classNbr pgtype.Int4) ([]GetChangeWatchersForSectionRow, error) {
+	rows, err := q.db.Query(ctx, getChangeWatchersForSection, classNbr)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetChangeWatchersForSectionRow
+	for rows.Next() {
+		var i GetChangeWatchersForSectionRow
+		if err := rows.Scan(&i.ID, &i.Email, &i.DiscordWebhook); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getCourseWatchersForSection = `-- name: GetCourseWatchersForSection :many
+SELECT cw.id, cw.user_id, cw.campus, cw.days, cw.start_after, cw.start_before, cw.instructor,
+       u.email, u.discord_webhook
+FROM course_watches cw
+JOIN users u ON u.id = cw.user_id
+WHERE cw.subject = $1 AND cw.catalog_nbr = $2
+  AND cw.active AND u.verified = true
+  AND NOT EXISTS (
+      SELECT 1 FROM watches w
+      WHERE w.user_id = cw.user_id AND w.class_nbr = $3 AND w.active
+  )
+`
+
+type GetCourseWatchersForSectionParams struct {
+	Subject    string
+	CatalogNbr string
+	ClassNbr   pgtype.Int4
+}
+
+type GetCourseWatchersForSectionRow struct {
+	ID             int32
+	UserID         int32
+	Campus         pgtype.Text
+	Days           pgtype.Text
+	StartAfter     pgtype.Int4
+	StartBefore    pgtype.Int4
+	Instructor     pgtype.Text
+	Email          string
+	DiscordWebhook pgtype.Text
+}
+
+// Active course watches on this section's course, minus anyone with an
+// active watch on this exact section (they get that alert instead).
+func (q *Queries) GetCourseWatchersForSection(ctx context.Context, arg GetCourseWatchersForSectionParams) ([]GetCourseWatchersForSectionRow, error) {
+	rows, err := q.db.Query(ctx, getCourseWatchersForSection, arg.Subject, arg.CatalogNbr, arg.ClassNbr)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetCourseWatchersForSectionRow
+	for rows.Next() {
+		var i GetCourseWatchersForSectionRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.UserID,
+			&i.Campus,
+			&i.Days,
+			&i.StartAfter,
+			&i.StartBefore,
+			&i.Instructor,
+			&i.Email,
+			&i.DiscordWebhook,
+		); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
@@ -421,11 +718,15 @@ func (q *Queries) GetActiveWatchersForSection(ctx context.Context, classNbr pgty
 const getDistinctWatchedSubjects = `-- name: GetDistinctWatchedSubjects :many
 SELECT DISTINCT s.subject FROM sections s
 JOIN watches w ON w.class_nbr = s.class_nbr
-WHERE w.active = true
+WHERE w.active = true OR (w.notify_changes AND s.term = $1)
+UNION
+SELECT DISTINCT subject FROM course_watches WHERE active
 `
 
-func (q *Queries) GetDistinctWatchedSubjects(ctx context.Context) ([]string, error) {
-	rows, err := q.db.Query(ctx, getDistinctWatchedSubjects)
+// Subjects the poller scans: active section watches, active course watches,
+// and this term's sections still sending change alerts.
+func (q *Queries) GetDistinctWatchedSubjects(ctx context.Context, term string) ([]string, error) {
+	rows, err := q.db.Query(ctx, getDistinctWatchedSubjects, term)
 	if err != nil {
 		return nil, err
 	}
@@ -464,7 +765,7 @@ func (q *Queries) GetRefreshToken(ctx context.Context, tokenHash string) (Refres
 }
 
 const getSectionByClassNbr = `-- name: GetSectionByClassNbr :one
-SELECT class_nbr, subject, catalog_nbr, class_section, descr, term, last_enrollment_avail, updated_at FROM sections WHERE class_nbr = $1
+SELECT class_nbr, subject, catalog_nbr, class_section, descr, term, last_enrollment_avail, updated_at, instructor, meetings, status, campus, component, session_code, missing_cycles FROM sections WHERE class_nbr = $1
 `
 
 func (q *Queries) GetSectionByClassNbr(ctx context.Context, classNbr int32) (Section, error) {
@@ -479,6 +780,13 @@ func (q *Queries) GetSectionByClassNbr(ctx context.Context, classNbr int32) (Sec
 		&i.Term,
 		&i.LastEnrollmentAvail,
 		&i.UpdatedAt,
+		&i.Instructor,
+		&i.Meetings,
+		&i.Status,
+		&i.Campus,
+		&i.Component,
+		&i.SessionCode,
+		&i.MissingCycles,
 	)
 	return i, err
 }
@@ -494,8 +802,44 @@ func (q *Queries) GetSectionLastAvail(ctx context.Context, classNbr int32) (pgty
 	return last_enrollment_avail, err
 }
 
+const getSectionState = `-- name: GetSectionState :one
+
+SELECT last_enrollment_avail, instructor, meetings, status FROM sections WHERE class_nbr = $1
+`
+
+type GetSectionStateRow struct {
+	LastEnrollmentAvail pgtype.Int4
+	Instructor          pgtype.Text
+	Meetings            pgtype.Text
+	Status              pgtype.Text
+}
+
+// ---------- alerts: section state, changes, course watches ----------
+func (q *Queries) GetSectionState(ctx context.Context, classNbr int32) (GetSectionStateRow, error) {
+	row := q.db.QueryRow(ctx, getSectionState, classNbr)
+	var i GetSectionStateRow
+	err := row.Scan(
+		&i.LastEnrollmentAvail,
+		&i.Instructor,
+		&i.Meetings,
+		&i.Status,
+	)
+	return i, err
+}
+
+const getUserAlertSettings = `-- name: GetUserAlertSettings :one
+SELECT discord_webhook FROM users WHERE id = $1
+`
+
+func (q *Queries) GetUserAlertSettings(ctx context.Context, id int32) (pgtype.Text, error) {
+	row := q.db.QueryRow(ctx, getUserAlertSettings, id)
+	var discord_webhook pgtype.Text
+	err := row.Scan(&discord_webhook)
+	return discord_webhook, err
+}
+
 const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, email, verified, created_at, token_version FROM users WHERE email = $1
+SELECT id, email, verified, created_at, token_version, discord_webhook FROM users WHERE email = $1
 `
 
 func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error) {
@@ -507,12 +851,13 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error
 		&i.Verified,
 		&i.CreatedAt,
 		&i.TokenVersion,
+		&i.DiscordWebhook,
 	)
 	return i, err
 }
 
 const getUserByID = `-- name: GetUserByID :one
-SELECT id, email, verified, created_at, token_version FROM users WHERE id = $1
+SELECT id, email, verified, created_at, token_version, discord_webhook FROM users WHERE id = $1
 `
 
 func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
@@ -524,6 +869,7 @@ func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
 		&i.Verified,
 		&i.CreatedAt,
 		&i.TokenVersion,
+		&i.DiscordWebhook,
 	)
 	return i, err
 }
@@ -546,7 +892,7 @@ func (q *Queries) GetVerificationToken(ctx context.Context, token string) (Verif
 }
 
 const getWatchesForEmail = `-- name: GetWatchesForEmail :many
-SELECT w.id, w.class_nbr, w.active, w.created_at,
+SELECT w.id, w.class_nbr, w.active, w.created_at, w.notify_changes,
        s.subject, s.catalog_nbr, s.class_section, s.descr, s.last_enrollment_avail
 FROM watches w
 JOIN users u ON u.id = w.user_id
@@ -560,6 +906,7 @@ type GetWatchesForEmailRow struct {
 	ClassNbr            pgtype.Int4
 	Active              pgtype.Bool
 	CreatedAt           pgtype.Timestamptz
+	NotifyChanges       bool
 	Subject             string
 	CatalogNbr          string
 	ClassSection        string
@@ -581,6 +928,7 @@ func (q *Queries) GetWatchesForEmail(ctx context.Context, email string) ([]GetWa
 			&i.ClassNbr,
 			&i.Active,
 			&i.CreatedAt,
+			&i.NotifyChanges,
 			&i.Subject,
 			&i.CatalogNbr,
 			&i.ClassSection,
@@ -595,6 +943,37 @@ func (q *Queries) GetWatchesForEmail(ctx context.Context, email string) ([]GetWa
 		return nil, err
 	}
 	return items, nil
+}
+
+const insertGECCategory = `-- name: InsertGECCategory :exec
+INSERT INTO gec_categories (code, name, hours) VALUES ($1, $2, $3)
+`
+
+type InsertGECCategoryParams struct {
+	Code  string
+	Name  string
+	Hours int32
+}
+
+func (q *Queries) InsertGECCategory(ctx context.Context, arg InsertGECCategoryParams) error {
+	_, err := q.db.Exec(ctx, insertGECCategory, arg.Code, arg.Name, arg.Hours)
+	return err
+}
+
+const insertGECCourse = `-- name: InsertGECCourse :exec
+INSERT INTO gec_courses (category, subject, catalog_nbr) VALUES ($1, $2, $3)
+ON CONFLICT DO NOTHING
+`
+
+type InsertGECCourseParams struct {
+	Category   string
+	Subject    string
+	CatalogNbr string
+}
+
+func (q *Queries) InsertGECCourse(ctx context.Context, arg InsertGECCourseParams) error {
+	_, err := q.db.Exec(ctx, insertGECCourse, arg.Category, arg.Subject, arg.CatalogNbr)
+	return err
 }
 
 const insertPollCycle = `-- name: InsertPollCycle :exec
@@ -621,6 +1000,40 @@ func (q *Queries) InsertPollCycle(ctx context.Context, arg InsertPollCycleParams
 		arg.UsmRequests,
 		arg.Openings,
 		arg.Errors,
+	)
+	return err
+}
+
+const insertProgram = `-- name: InsertProgram :exec
+INSERT INTO degree_programs (slug, title, college, school, specializations, campuses, page_url, catalog_labels, catalog_urls, fetched_at)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+`
+
+type InsertProgramParams struct {
+	Slug            string
+	Title           string
+	College         string
+	School          string
+	Specializations []string
+	Campuses        []string
+	PageUrl         string
+	CatalogLabels   []string
+	CatalogUrls     []string
+	FetchedAt       pgtype.Date
+}
+
+func (q *Queries) InsertProgram(ctx context.Context, arg InsertProgramParams) error {
+	_, err := q.db.Exec(ctx, insertProgram,
+		arg.Slug,
+		arg.Title,
+		arg.College,
+		arg.School,
+		arg.Specializations,
+		arg.Campuses,
+		arg.PageUrl,
+		arg.CatalogLabels,
+		arg.CatalogUrls,
+		arg.FetchedAt,
 	)
 	return err
 }
@@ -653,6 +1066,379 @@ func (q *Queries) InsertSeatEvent(ctx context.Context, arg InsertSeatEventParams
 		arg.Notified,
 	)
 	return err
+}
+
+const insertSeatHistory = `-- name: InsertSeatHistory :exec
+INSERT INTO seat_history (class_nbr, seats) VALUES ($1, $2)
+`
+
+type InsertSeatHistoryParams struct {
+	ClassNbr int32
+	Seats    int32
+}
+
+func (q *Queries) InsertSeatHistory(ctx context.Context, arg InsertSeatHistoryParams) error {
+	_, err := q.db.Exec(ctx, insertSeatHistory, arg.ClassNbr, arg.Seats)
+	return err
+}
+
+const insertSectionChange = `-- name: InsertSectionChange :exec
+INSERT INTO section_changes (class_nbr, subject, catalog_nbr, class_section, field, old_value, new_value, notified)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+`
+
+type InsertSectionChangeParams struct {
+	ClassNbr     int32
+	Subject      string
+	CatalogNbr   string
+	ClassSection string
+	Field        string
+	OldValue     string
+	NewValue     string
+	Notified     int32
+}
+
+func (q *Queries) InsertSectionChange(ctx context.Context, arg InsertSectionChangeParams) error {
+	_, err := q.db.Exec(ctx, insertSectionChange,
+		arg.ClassNbr,
+		arg.Subject,
+		arg.CatalogNbr,
+		arg.ClassSection,
+		arg.Field,
+		arg.OldValue,
+		arg.NewValue,
+		arg.Notified,
+	)
+	return err
+}
+
+const insertSectionIfNew = `-- name: InsertSectionIfNew :exec
+INSERT INTO sections (class_nbr, subject, catalog_nbr, class_section, descr, term, last_enrollment_avail, campus, component, session_code)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+ON CONFLICT (class_nbr) DO NOTHING
+`
+
+type InsertSectionIfNewParams struct {
+	ClassNbr            int32
+	Subject             string
+	CatalogNbr          string
+	ClassSection        string
+	Descr               pgtype.Text
+	Term                string
+	LastEnrollmentAvail pgtype.Int4
+	Campus              pgtype.Text
+	Component           pgtype.Text
+	SessionCode         pgtype.Text
+}
+
+// Search results only add sections we haven't seen. Updating seats here would
+// hide a full -> open flip from the poller, which compares against this row.
+func (q *Queries) InsertSectionIfNew(ctx context.Context, arg InsertSectionIfNewParams) error {
+	_, err := q.db.Exec(ctx, insertSectionIfNew,
+		arg.ClassNbr,
+		arg.Subject,
+		arg.CatalogNbr,
+		arg.ClassSection,
+		arg.Descr,
+		arg.Term,
+		arg.LastEnrollmentAvail,
+		arg.Campus,
+		arg.Component,
+		arg.SessionCode,
+	)
+	return err
+}
+
+const insertTrack = `-- name: InsertTrack :exec
+INSERT INTO tracks (slug, name, summary, note, requirements, milestones, footnotes, related_programs, source_url, fetched_at, sort_order)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+`
+
+type InsertTrackParams struct {
+	Slug            string
+	Name            string
+	Summary         string
+	Note            string
+	Requirements    []byte
+	Milestones      []byte
+	Footnotes       []byte
+	RelatedPrograms []string
+	SourceUrl       string
+	FetchedAt       pgtype.Date
+	SortOrder       int32
+}
+
+func (q *Queries) InsertTrack(ctx context.Context, arg InsertTrackParams) error {
+	_, err := q.db.Exec(ctx, insertTrack,
+		arg.Slug,
+		arg.Name,
+		arg.Summary,
+		arg.Note,
+		arg.Requirements,
+		arg.Milestones,
+		arg.Footnotes,
+		arg.RelatedPrograms,
+		arg.SourceUrl,
+		arg.FetchedAt,
+		arg.SortOrder,
+	)
+	return err
+}
+
+const insertTrackCourse = `-- name: InsertTrackCourse :exec
+INSERT INTO track_courses (track_slug, subject, catalog_nbr, requirement)
+VALUES ($1, $2, $3, $4)
+ON CONFLICT DO NOTHING
+`
+
+type InsertTrackCourseParams struct {
+	TrackSlug   string
+	Subject     string
+	CatalogNbr  string
+	Requirement string
+}
+
+func (q *Queries) InsertTrackCourse(ctx context.Context, arg InsertTrackCourseParams) error {
+	_, err := q.db.Exec(ctx, insertTrackCourse,
+		arg.TrackSlug,
+		arg.Subject,
+		arg.CatalogNbr,
+		arg.Requirement,
+	)
+	return err
+}
+
+const listCourseWatchesForUser = `-- name: ListCourseWatchesForUser :many
+SELECT cw.id, cw.user_id, cw.subject, cw.catalog_nbr, cw.campus, cw.days, cw.start_after, cw.start_before, cw.instructor, cw.active, cw.notified_at, cw.created_at,
+       (SELECT count(*) FROM sections s
+         WHERE s.subject = cw.subject AND s.catalog_nbr = cw.catalog_nbr)::int AS sections,
+       (SELECT count(*) FROM sections s
+         WHERE s.subject = cw.subject AND s.catalog_nbr = cw.catalog_nbr AND s.last_enrollment_avail > 0)::int AS open_sections
+FROM course_watches cw
+WHERE cw.user_id = $1
+ORDER BY cw.created_at DESC
+`
+
+type ListCourseWatchesForUserRow struct {
+	ID           int32
+	UserID       int32
+	Subject      string
+	CatalogNbr   string
+	Campus       pgtype.Text
+	Days         pgtype.Text
+	StartAfter   pgtype.Int4
+	StartBefore  pgtype.Int4
+	Instructor   pgtype.Text
+	Active       bool
+	NotifiedAt   pgtype.Timestamptz
+	CreatedAt    pgtype.Timestamptz
+	Sections     int32
+	OpenSections int32
+}
+
+func (q *Queries) ListCourseWatchesForUser(ctx context.Context, userID int32) ([]ListCourseWatchesForUserRow, error) {
+	rows, err := q.db.Query(ctx, listCourseWatchesForUser, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []ListCourseWatchesForUserRow
+	for rows.Next() {
+		var i ListCourseWatchesForUserRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.UserID,
+			&i.Subject,
+			&i.CatalogNbr,
+			&i.Campus,
+			&i.Days,
+			&i.StartAfter,
+			&i.StartBefore,
+			&i.Instructor,
+			&i.Active,
+			&i.NotifiedAt,
+			&i.CreatedAt,
+			&i.Sections,
+			&i.OpenSections,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listGECCourses = `-- name: ListGECCourses :many
+SELECT c.code, c.name, c.hours, g.subject, g.catalog_nbr
+FROM gec_categories c
+JOIN gec_courses g ON g.category = c.code
+ORDER BY c.code, g.subject, g.catalog_nbr
+`
+
+type ListGECCoursesRow struct {
+	Code       string
+	Name       string
+	Hours      int32
+	Subject    string
+	CatalogNbr string
+}
+
+func (q *Queries) ListGECCourses(ctx context.Context) ([]ListGECCoursesRow, error) {
+	rows, err := q.db.Query(ctx, listGECCourses)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []ListGECCoursesRow
+	for rows.Next() {
+		var i ListGECCoursesRow
+		if err := rows.Scan(
+			&i.Code,
+			&i.Name,
+			&i.Hours,
+			&i.Subject,
+			&i.CatalogNbr,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listPrograms = `-- name: ListPrograms :many
+SELECT slug, title, college, school, specializations, campuses, page_url, catalog_labels, catalog_urls, fetched_at FROM degree_programs ORDER BY title
+`
+
+func (q *Queries) ListPrograms(ctx context.Context) ([]DegreeProgram, error) {
+	rows, err := q.db.Query(ctx, listPrograms)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []DegreeProgram
+	for rows.Next() {
+		var i DegreeProgram
+		if err := rows.Scan(
+			&i.Slug,
+			&i.Title,
+			&i.College,
+			&i.School,
+			&i.Specializations,
+			&i.Campuses,
+			&i.PageUrl,
+			&i.CatalogLabels,
+			&i.CatalogUrls,
+			&i.FetchedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listTracks = `-- name: ListTracks :many
+SELECT slug, name, summary, note, requirements, milestones, footnotes, related_programs, source_url, fetched_at, sort_order FROM tracks ORDER BY sort_order, name
+`
+
+func (q *Queries) ListTracks(ctx context.Context) ([]Track, error) {
+	rows, err := q.db.Query(ctx, listTracks)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Track
+	for rows.Next() {
+		var i Track
+		if err := rows.Scan(
+			&i.Slug,
+			&i.Name,
+			&i.Summary,
+			&i.Note,
+			&i.Requirements,
+			&i.Milestones,
+			&i.Footnotes,
+			&i.RelatedPrograms,
+			&i.SourceUrl,
+			&i.FetchedAt,
+			&i.SortOrder,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const markMissingSections = `-- name: MarkMissingSections :many
+UPDATE sections
+SET missing_cycles = missing_cycles + 1
+WHERE subject = $1 AND term = $2 AND session_code = $3
+  AND NOT (class_nbr = ANY($4::int[]))
+RETURNING class_nbr, subject, catalog_nbr, class_section, descr, missing_cycles
+`
+
+type MarkMissingSectionsParams struct {
+	Subject     string
+	Term        string
+	SessionCode pgtype.Text
+	Seen        []int32
+}
+
+type MarkMissingSectionsRow struct {
+	ClassNbr      int32
+	Subject       string
+	CatalogNbr    string
+	ClassSection  string
+	Descr         pgtype.Text
+	MissingCycles int32
+}
+
+// After a complete scan of a subject, count a miss for every section of it
+// in the scanned term and session that wasn't listed.
+func (q *Queries) MarkMissingSections(ctx context.Context, arg MarkMissingSectionsParams) ([]MarkMissingSectionsRow, error) {
+	rows, err := q.db.Query(ctx, markMissingSections,
+		arg.Subject,
+		arg.Term,
+		arg.SessionCode,
+		arg.Seen,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []MarkMissingSectionsRow
+	for rows.Next() {
+		var i MarkMissingSectionsRow
+		if err := rows.Scan(
+			&i.ClassNbr,
+			&i.Subject,
+			&i.CatalogNbr,
+			&i.ClassSection,
+			&i.Descr,
+			&i.MissingCycles,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const markTokenUsed = `-- name: MarkTokenUsed :exec
@@ -860,6 +1646,96 @@ func (q *Queries) SeatEventTotalsSince(ctx context.Context, createdAt pgtype.Tim
 	return i, err
 }
 
+const seatHistorySince = `-- name: SeatHistorySince :many
+
+SELECT h.class_nbr, h.seats, h.at
+FROM seat_history h
+JOIN sections s ON s.class_nbr = h.class_nbr
+WHERE s.subject = $1 AND s.catalog_nbr = $2 AND h.at >= $3
+ORDER BY h.class_nbr, h.at
+`
+
+type SeatHistorySinceParams struct {
+	Subject    string
+	CatalogNbr string
+	At         pgtype.Timestamptz
+}
+
+// ---------- trends and history for course pages ----------
+func (q *Queries) SeatHistorySince(ctx context.Context, arg SeatHistorySinceParams) ([]SeatHistory, error) {
+	rows, err := q.db.Query(ctx, seatHistorySince, arg.Subject, arg.CatalogNbr, arg.At)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []SeatHistory
+	for rows.Next() {
+		var i SeatHistory
+		if err := rows.Scan(&i.ClassNbr, &i.Seats, &i.At); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const sectionChangesForUser = `-- name: SectionChangesForUser :many
+SELECT sc.id, sc.class_nbr, sc.subject, sc.catalog_nbr, sc.class_section, sc.field, sc.old_value, sc.new_value, sc.notified, sc.created_at FROM section_changes sc
+JOIN watches w ON w.class_nbr = sc.class_nbr
+WHERE w.user_id = $1
+ORDER BY sc.created_at DESC
+LIMIT 50
+`
+
+// Recent changes on sections the user watches, for the watches page.
+func (q *Queries) SectionChangesForUser(ctx context.Context, userID pgtype.Int4) ([]SectionChange, error) {
+	rows, err := q.db.Query(ctx, sectionChangesForUser, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []SectionChange
+	for rows.Next() {
+		var i SectionChange
+		if err := rows.Scan(
+			&i.ID,
+			&i.ClassNbr,
+			&i.Subject,
+			&i.CatalogNbr,
+			&i.ClassSection,
+			&i.Field,
+			&i.OldValue,
+			&i.NewValue,
+			&i.Notified,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const setDiscordWebhook = `-- name: SetDiscordWebhook :exec
+UPDATE users SET discord_webhook = $2 WHERE id = $1
+`
+
+type SetDiscordWebhookParams struct {
+	ID             int32
+	DiscordWebhook pgtype.Text
+}
+
+func (q *Queries) SetDiscordWebhook(ctx context.Context, arg SetDiscordWebhookParams) error {
+	_, err := q.db.Exec(ctx, setDiscordWebhook, arg.ID, arg.DiscordWebhook)
+	return err
+}
+
 const setWatchActive = `-- name: SetWatchActive :execrows
 UPDATE watches SET active = $2 WHERE id = $1
 `
@@ -871,6 +1747,25 @@ type SetWatchActiveParams struct {
 
 func (q *Queries) SetWatchActive(ctx context.Context, arg SetWatchActiveParams) (int64, error) {
 	result, err := q.db.Exec(ctx, setWatchActive, arg.ID, arg.Active)
+	if err != nil {
+		return 0, err
+	}
+	return result.RowsAffected(), nil
+}
+
+const setWatchNotifyChanges = `-- name: SetWatchNotifyChanges :execrows
+UPDATE watches SET notify_changes = $3
+WHERE user_id = $1 AND class_nbr = $2
+`
+
+type SetWatchNotifyChangesParams struct {
+	UserID        pgtype.Int4
+	ClassNbr      pgtype.Int4
+	NotifyChanges bool
+}
+
+func (q *Queries) SetWatchNotifyChanges(ctx context.Context, arg SetWatchNotifyChangesParams) (int64, error) {
+	result, err := q.db.Exec(ctx, setWatchNotifyChanges, arg.UserID, arg.ClassNbr, arg.NotifyChanges)
 	if err != nil {
 		return 0, err
 	}
@@ -932,6 +1827,58 @@ func (q *Queries) UpsertSection(ctx context.Context, arg UpsertSectionParams) er
 		arg.Descr,
 		arg.Term,
 		arg.LastEnrollmentAvail,
+	)
+	return err
+}
+
+const upsertSectionState = `-- name: UpsertSectionState :exec
+INSERT INTO sections (class_nbr, subject, catalog_nbr, class_section, descr, term, last_enrollment_avail,
+                      instructor, meetings, status, campus, component, session_code)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+ON CONFLICT (class_nbr) DO UPDATE SET
+    last_enrollment_avail = EXCLUDED.last_enrollment_avail,
+    instructor = EXCLUDED.instructor,
+    meetings = EXCLUDED.meetings,
+    status = EXCLUDED.status,
+    campus = EXCLUDED.campus,
+    component = EXCLUDED.component,
+    session_code = EXCLUDED.session_code,
+    missing_cycles = 0,
+    updated_at = now()
+`
+
+type UpsertSectionStateParams struct {
+	ClassNbr            int32
+	Subject             string
+	CatalogNbr          string
+	ClassSection        string
+	Descr               pgtype.Text
+	Term                string
+	LastEnrollmentAvail pgtype.Int4
+	Instructor          pgtype.Text
+	Meetings            pgtype.Text
+	Status              pgtype.Text
+	Campus              pgtype.Text
+	Component           pgtype.Text
+	SessionCode         pgtype.Text
+}
+
+// The poller's full view of a section. missing_cycles resets: it was listed.
+func (q *Queries) UpsertSectionState(ctx context.Context, arg UpsertSectionStateParams) error {
+	_, err := q.db.Exec(ctx, upsertSectionState,
+		arg.ClassNbr,
+		arg.Subject,
+		arg.CatalogNbr,
+		arg.ClassSection,
+		arg.Descr,
+		arg.Term,
+		arg.LastEnrollmentAvail,
+		arg.Instructor,
+		arg.Meetings,
+		arg.Status,
+		arg.Campus,
+		arg.Component,
+		arg.SessionCode,
 	)
 	return err
 }

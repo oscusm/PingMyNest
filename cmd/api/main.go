@@ -14,6 +14,7 @@ import (
 	"github.com/oscusm/PingMyNest/internal/catalog"
 	db "github.com/oscusm/PingMyNest/internal/db"
 	"github.com/oscusm/PingMyNest/internal/notify"
+	"github.com/oscusm/PingMyNest/internal/tracks"
 	"github.com/oscusm/PingMyNest/internal/usm"
 )
 
@@ -57,6 +58,15 @@ func main() {
 		log.Fatal("unable to load course catalog:", err)
 	}
 
+	planning, err := tracks.LoadEmbedded()
+	if err != nil {
+		log.Fatal("unable to load tracks snapshot:", err)
+	}
+	if err := syncPlanning(ctx, pool, planning); err != nil {
+		log.Fatal("unable to sync tracks, programs, and GEC into the database:", err)
+	}
+	log.Printf("synced %d track(s), %d program(s), %d GEC categor(ies)", len(planning.Tracks), len(planning.Programs), len(planning.GEC))
+
 	searchClient := newUSMClient()
 	go recordSearchTraffic(queries, searchClient)
 	pcfg := loadPulseConfig()
@@ -76,6 +86,18 @@ func main() {
 	mux.HandleFunc("/watches", authMiddleware(sessions, queries, listWatchesHandler(queries)))
 	mux.HandleFunc("/watch/delete", authMiddleware(sessions, queries, deleteWatchHandler(queries)))
 	mux.HandleFunc("/me", authMiddleware(sessions, queries, meHandler(queries, admins)))
+	authed := func(h http.HandlerFunc) http.HandlerFunc { return authMiddleware(sessions, queries, h) }
+	mux.HandleFunc("POST /course-watch", authed(createCourseWatchHandler(queries)))
+	mux.HandleFunc("GET /course-watches", authed(listCourseWatchesHandler(queries)))
+	mux.HandleFunc("DELETE /course-watches/{id}", authed(deleteCourseWatchHandler(queries)))
+	mux.HandleFunc("POST /watch/changes", authed(setWatchChangesHandler(queries)))
+	mux.HandleFunc("GET /changes", authed(changesHandler(queries)))
+	mux.HandleFunc("GET /alert-settings", authed(alertSettingsHandler(queries)))
+	mux.HandleFunc("PUT /alert-settings", authed(alertSettingsHandler(queries)))
+	mux.HandleFunc("GET /tracks", tracksHandler(queries))
+	mux.HandleFunc("GET /programs", programsHandler(queries))
+	mux.HandleFunc("GET /gec", gecHandler(queries))
+	mux.HandleFunc("GET /course-insights", courseInsightsHandler(queries))
 	mux.HandleFunc("/pulse", pulseHandler(queries, courses, pcfg))
 	mux.HandleFunc("/logout", logoutHandler(queries, sessions))
 	registerAdminRoutes(mux, func(h http.HandlerFunc) http.HandlerFunc {

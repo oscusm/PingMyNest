@@ -28,11 +28,11 @@ func TestFlattenKeepsEveryMeeting(t *testing.T) {
 		Meetings: []Meeting{
 			{Days: "MoWe", StartTime: "08.00.00.000000", EndTime: "09.15.00.000000"},
 			{Days: "TBA"},
-			{Days: "Th", StartTime: "18.00.00.000000", EndTime: "20.50.00.000000"},
+			{Days: "Th", StartTime: "18.00.00.000000", EndTime: "20.50.00.000000", FacilityDescr: " LAB 102 "},
 		},
 	}
 	got := s.Flatten()
-	want := []TimeSlot{{"MW", "8:00 AM", "9:15 AM"}, {"R", "6:00 PM", "8:50 PM"}}
+	want := []TimeSlot{{"MW", "8:00 AM", "9:15 AM", ""}, {"R", "6:00 PM", "8:50 PM", "LAB 102"}}
 	if len(got.Times) != 2 || got.Times[0] != want[0] || got.Times[1] != want[1] {
 		t.Errorf("times = %+v, want %+v", got.Times, want)
 	}
@@ -102,5 +102,32 @@ func TestFlattenRealUSMResponse(t *testing.T) {
 		if len(s.Instructors) > 0 && s.Instructors[0].Name != "Staff" && c.InstructorLast == "" {
 			t.Errorf("%s-%s: instructor not flattened", c.CatalogNbr, c.ClassSection)
 		}
+	}
+}
+
+func TestRealSectionStatusDatesAndGEC(t *testing.T) {
+	data, err := os.ReadFile("testdata/mat_search.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var res SearchResponse
+	if err := json.Unmarshal(data, &res); err != nil {
+		t.Fatal(err)
+	}
+	gec := false
+	for _, s := range res.Classes {
+		c := s.Flatten()
+		if c.ClassStat != "A" || c.StartDt != "08/24/2026" || c.EndDt != "12/10/2026" {
+			t.Errorf("%d: class_stat %q, dates %q-%q", c.ClassNbr, c.ClassStat, c.StartDt, c.EndDt)
+		}
+		gec = gec || c.RqmntDesigntn == "GEC6"
+		for _, m := range c.Times {
+			if m.Room == "" {
+				t.Errorf("%d: meeting without room", c.ClassNbr)
+			}
+		}
+	}
+	if !gec {
+		t.Error("no section carried rqmnt_designtn GEC6")
 	}
 }

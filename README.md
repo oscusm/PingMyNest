@@ -69,6 +69,8 @@ replica --down                  # stop the background server
 
 PingTheNest polls USM's public, unauthenticated Class Search endpoint (the same one the university's own course catalog page uses), no student login or private data is accessed. Polling is rate-limited and conservative by design to avoid unnecessary load on USM's servers. USM's iTech department has been notified about this tool.
 
+Planning data (pre-professional tracks, undergraduate programs, GEC course lists) comes from public usm.edu pages: `/preprofessional/*`, the BSN prerequisite checklist PDF, `/undergraduate-programs/*`, and the Provost's "Seymour's GEC" page. `replica --tracks` fetches them once (3s apart, cached in `data/tracks/`, needs `pdftotext` for the PDF) and parses them into `internal/tracks/tracks.json`, which the API copies into Postgres on start. After a refresh, run `npm run sync-catalog` in `frontend/` so the course pages pick it up. Full degree requirements stay linked to the Academic Bulletin (catalog.usm.edu), which blocks automated readers.
+
 ## Status
 
 Work in progress — built as a learning project to go deep on Go concurrency patterns (worker pools, channels, `context`), queueing, and real-world backend design beyond CRUD.

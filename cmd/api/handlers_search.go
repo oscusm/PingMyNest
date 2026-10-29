@@ -93,7 +93,8 @@ func searchHandler(queries *db.Queries, courses *catalog.Catalog, usmClient *usm
 		for _, c := range result.Classes {
 			courses.Add(catalog.Course{Subject: c.Subject, CatalogNbr: c.CatalogNbr, Title: c.Descr})
 			courses.AddInstructor(c.InstructorFirst, c.InstructorLast, c.Subject)
-			_ = queries.UpsertSection(ctx, db.UpsertSectionParams{
+			// insert-only: the poller owns seat counts, and compares against them
+			_ = queries.InsertSectionIfNew(ctx, db.InsertSectionIfNewParams{
 				ClassNbr:            int32(c.ClassNbr),
 				Subject:             c.Subject,
 				CatalogNbr:          c.CatalogNbr,
@@ -101,6 +102,9 @@ func searchHandler(queries *db.Queries, courses *catalog.Catalog, usmClient *usm
 				Descr:               pgtype.Text{String: c.Descr, Valid: true},
 				Term:                c.Strm,
 				LastEnrollmentAvail: pgtype.Int4{Int32: int32(c.EnrollmentAvail), Valid: true},
+				Campus:              pgtype.Text{String: c.Campus, Valid: c.Campus != ""},
+				Component:           pgtype.Text{String: c.Component, Valid: c.Component != ""},
+				SessionCode:         pgtype.Text{String: c.SessionCode, Valid: c.SessionCode != ""},
 			})
 		}
 

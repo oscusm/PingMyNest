@@ -8,6 +8,52 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+type CourseInterest struct {
+	UserID     pgtype.Int4
+	Subject    string
+	CatalogNbr string
+}
+
+type CourseWatch struct {
+	ID          int32
+	UserID      int32
+	Subject     string
+	CatalogNbr  string
+	Campus      pgtype.Text
+	Days        pgtype.Text
+	StartAfter  pgtype.Int4
+	StartBefore pgtype.Int4
+	Instructor  pgtype.Text
+	Active      bool
+	NotifiedAt  pgtype.Timestamptz
+	CreatedAt   pgtype.Timestamptz
+}
+
+type DegreeProgram struct {
+	Slug            string
+	Title           string
+	College         string
+	School          string
+	Specializations []string
+	Campuses        []string
+	PageUrl         string
+	CatalogLabels   []string
+	CatalogUrls     []string
+	FetchedAt       pgtype.Date
+}
+
+type GecCategory struct {
+	Code  string
+	Name  string
+	Hours int32
+}
+
+type GecCourse struct {
+	Category   string
+	Subject    string
+	CatalogNbr string
+}
+
 type PollCycle struct {
 	ID              int64
 	StartedAt       pgtype.Timestamptz
@@ -42,6 +88,12 @@ type SeatEvent struct {
 	CreatedAt    pgtype.Timestamptz
 }
 
+type SeatHistory struct {
+	ClassNbr int32
+	Seats    int32
+	At       pgtype.Timestamptz
+}
+
 type Section struct {
 	ClassNbr            int32
 	Subject             string
@@ -51,14 +103,56 @@ type Section struct {
 	Term                string
 	LastEnrollmentAvail pgtype.Int4
 	UpdatedAt           pgtype.Timestamptz
+	Instructor          pgtype.Text
+	Meetings            pgtype.Text
+	Status              pgtype.Text
+	Campus              pgtype.Text
+	Component           pgtype.Text
+	SessionCode         pgtype.Text
+	MissingCycles       int32
+}
+
+type SectionChange struct {
+	ID           int64
+	ClassNbr     int32
+	Subject      string
+	CatalogNbr   string
+	ClassSection string
+	Field        string
+	OldValue     string
+	NewValue     string
+	Notified     int32
+	CreatedAt    pgtype.Timestamptz
+}
+
+type Track struct {
+	Slug            string
+	Name            string
+	Summary         string
+	Note            string
+	Requirements    []byte
+	Milestones      []byte
+	Footnotes       []byte
+	RelatedPrograms []string
+	SourceUrl       string
+	FetchedAt       pgtype.Date
+	SortOrder       int32
+}
+
+type TrackCourse struct {
+	TrackSlug   string
+	Subject     string
+	CatalogNbr  string
+	Requirement string
 }
 
 type User struct {
-	ID           int32
-	Email        string
-	Verified     pgtype.Bool
-	CreatedAt    pgtype.Timestamptz
-	TokenVersion int32
+	ID             int32
+	Email          string
+	Verified       pgtype.Bool
+	CreatedAt      pgtype.Timestamptz
+	TokenVersion   int32
+	DiscordWebhook pgtype.Text
 }
 
 type UsmTraffic struct {
@@ -77,9 +171,10 @@ type VerificationToken struct {
 }
 
 type Watch struct {
-	ID        int32
-	UserID    pgtype.Int4
-	ClassNbr  pgtype.Int4
-	Active    pgtype.Bool
-	CreatedAt pgtype.Timestamptz
+	ID            int32
+	UserID        pgtype.Int4
+	ClassNbr      pgtype.Int4
+	Active        pgtype.Bool
+	CreatedAt     pgtype.Timestamptz
+	NotifyChanges bool
 }

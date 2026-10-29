@@ -10,6 +10,7 @@ type watchListItem struct {
 	ID              int32  `json:"id"`
 	ClassNbr        int32  `json:"class_nbr"`
 	Active          bool   `json:"active"`
+	NotifyChanges   bool   `json:"notify_changes"`
 	Subject         string `json:"subject"`
 	CatalogNbr      string `json:"catalog_nbr"`
 	ClassSection    string `json:"class_section"`
@@ -42,6 +43,7 @@ func listWatchesHandler(queries *db.Queries) http.HandlerFunc {
 				ID:              row.ID,
 				ClassNbr:        row.ClassNbr.Int32,
 				Active:          row.Active.Bool,
+				NotifyChanges:   row.NotifyChanges,
 				Subject:         row.Subject,
 				CatalogNbr:      row.CatalogNbr,
 				ClassSection:    row.ClassSection,

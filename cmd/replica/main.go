@@ -6,6 +6,7 @@
 //	replica --populate MAT CSC     Save whole subjects to data/MAT_ALL.json, data/CSC_ALL.json
 //	replica --subjects             Save USM's subject list to data/subjects.json
 //	replica --catalog              Build internal/catalog/catalog.json for autocomplete
+//	replica --tracks [--refresh]   Scrape usm.edu tracks/programs/GEC into internal/tracks/tracks.json
 //	replica --watch [--port 8081]  Start serving saved data in the background
 //	replica --status               Show if running + uptime
 //	replica --restart [--port]     Stop (if running) and start again
@@ -44,6 +45,9 @@ func main() {
 
 	case "--catalog":
 		cmdCatalog()
+
+	case "--tracks":
+		cmdTracks(len(os.Args) > 2 && os.Args[2] == "--refresh")
 
 	case "--prereqs":
 		if len(os.Args) < 3 {
@@ -113,6 +117,9 @@ Usage:
   replica --subjects                           Save USM's subject list to data/subjects.json
   replica --prereqs <SUBJECT>...               Save prerequisite text per course (resumable, 5s/request)
   replica --catalog                            Build internal/catalog/catalog.json (offline)
+  replica --tracks [--refresh]                 Scrape usm.edu pre-professional tracks, programs, and
+                                               GEC lists into internal/tracks/tracks.json (3s/request,
+                                               cached in data/tracks/; --refresh refetches)
   replica --watch [--port 8081]                Start serving saved data in the background
   replica --status                             Show if running + uptime
   replica --restart [--port 8081]              Stop (if running) and start again

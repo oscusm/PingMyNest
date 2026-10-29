@@ -35,12 +35,22 @@ type ClassSection struct {
 	// Times lists every scheduled meeting; Days/StartTime/EndTime only carry
 	// the first, which misses classes like a lecture plus a separate lab night.
 	Times []TimeSlot `json:"times,omitempty"`
+
+	// ClassStat is PeopleSoft's section status: "A" active, "X" cancelled,
+	// "S" stopped enrollment, "T" tentative.
+	ClassStat string `json:"class_stat,omitempty"`
+	// First and last class day, "08/24/2026".
+	StartDt string `json:"start_dt,omitempty"`
+	EndDt   string `json:"end_dt,omitempty"`
+	// RqmntDesigntn names the GEC area a section counts for, e.g. "GEC6".
+	RqmntDesigntn string `json:"rqmnt_designtn,omitempty"`
 }
 
 type TimeSlot struct {
 	Days      string `json:"days"`
 	StartTime string `json:"start_time"`
 	EndTime   string `json:"end_time"`
+	Room      string `json:"room,omitempty"`
 }
 
 type ClassSearchResponse struct {
@@ -51,9 +61,10 @@ type ClassSearchResponse struct {
 // Real USM sections nest schedule and instructor data instead of using the
 // flat fields; Flatten copies them across.
 type Meeting struct {
-	Days      string `json:"days"`
-	StartTime string `json:"start_time"`
-	EndTime   string `json:"end_time"`
+	Days          string `json:"days"`
+	StartTime     string `json:"start_time"`
+	EndTime       string `json:"end_time"`
+	FacilityDescr string `json:"facility_descr"`
 }
 
 type Instructor struct {
@@ -82,7 +93,7 @@ func (s Section) Flatten() ClassSection {
 		if m.Days == "" || m.Days == "TBA" {
 			continue
 		}
-		times = append(times, TimeSlot{daysToLetters(m.Days), clockTime(m.StartTime), clockTime(m.EndTime)})
+		times = append(times, TimeSlot{daysToLetters(m.Days), clockTime(m.StartTime), clockTime(m.EndTime), strings.TrimSpace(m.FacilityDescr)})
 	}
 	if len(times) > 0 {
 		out.Days, out.StartTime, out.EndTime = times[0].Days, times[0].StartTime, times[0].EndTime
